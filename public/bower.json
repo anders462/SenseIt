@@ -1,0 +1,23 @@
+{
+  "name": "smartsense",
+  "homepage": "https://smartsense.herokuapp.com",
+  "authors": [
+    "anders462 <anders462@gmail.com>"
+  ],
+  "description": "IoT",
+  "main": "index.html",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "jquery": "^2.2.3",
+    "paho-mqtt": "*"
+  }
+}
