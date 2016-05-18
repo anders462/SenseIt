@@ -1,0 +1,29 @@
+body {
+  background-color: #ffffff; }
+
+/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+  margin-bottom: 0;
+  border-radius: 0; }
+
+/* Add a gray background color and some padding to the footer */
+footer {
+  background-color: #bdbdbd;
+  padding: 25px; }
+  footer ul {
+    list-style-type: none; }
+
+.form-group .help-block {
+  display: none; }
+
+.form-group.has-error .help-block {
+  display: block; }
+
+.main {
+  height: 500px;
+  background-image: url("../images/1900_600.png");
+  background-size: contain; }
+  .main h1 {
+    padding: 100px; }
+
+/*# sourceMappingURL=mysensor.css.map */

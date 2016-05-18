@@ -1,10 +1,99 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en" ng-app="SenseIt">
+
+<head>
     <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <h1>Test</h1>
-  </body>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head
+         content must come *after* these tags -->
+
+
+    <title> SenseIt App</title>
+        <!-- Bootstrap -->
+<!-- build:css styles/main.css -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="bower_components/ng-dialog/css/ngDialog.min.css" rel="stylesheet">
+    <link href="bower_components/ng-dialog/css/ngDialog-theme-plain.min.css" rel="stylesheet">
+    <link href="bower_components/ng-dialog/css/ngDialog-theme-default.min.css" rel="stylesheet">
+   <!--  <link href="/styles/bootstrap-social.css" rel="stylesheet"> -->
+   <!--  <link href="/bower_components/angular-chart.js/dist/angular-chart.min.css" rel="stylesheet"> -->
+   <link href="app/styles/mysensor.css" rel="stylesheet">
+<!-- endbuild -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+   <div ui-view="header"></div>
+   <div ui-view="content" ></div>
+   <div ui-view="footer"></div>
+
+
+
+<!-- build:js scripts/main.js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+    <!-- <script src="/bower_components/Chart.js/Chart.min.js"></script> -->
+    <!-- <script src="/bower_components/angular-chart.js/dist/angular-chart.min.js"></script> -->
+    <script src="bower_components/angular-resource/angular-resource.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="bower_components/ng-dialog/js/ngDialog.min.js"></script>
+
+
+    <!-- Own Scripts -->
+    <script src="app/app.js"></script>
+    <script src="app/home/home.module.js"></script>
+    <script src="app/home/home.config.route.js"></script>
+    <script src="app/home/home.controller.js"></script>
+    <script src="app/core/core.module.js"></script>
+    <script src="app/core/constants.js"></script>
+    <script src="app/core/auth.service.js"></script>
+    <script src="app/core/device.service.js"></script>
+    <script src="app/core/sensor.service.js"></script>
+    <script src="app/core/activate.service.js"></script>
+    <script src="app/register/register.module.js"></script>
+    <script src="app/register/register.config.js"></script>
+    <script src="app/register/register.controller.js"></script>
+    <script src="app/login/login.module.js"></script>
+    <script src="app/login/login.config.js"></script>
+    <script src="app/login/login.controller.js"></script>
+    <script src="app/dashboard/dashboard.module.js"></script>
+    <script src="app/dashboard/dashboard.config.js"></script>
+    <script src="app/dashboard/dashboard.controller.js"></script>
+    <script src="app/devices/devices.module.js"></script>
+    <script src="app/devices/devices.config.js"></script>
+    <script src="app/devices/devices.controller.js"></script>
+    <script src="app/sensors/sensors.module.js"></script>
+    <script src="app/sensors/sensors.config.js"></script>
+    <script src="app/sensors/sensors.controller.js"></script>
+    <script src="app/activate/activate.module.js"></script>
+    <script src="app/activate/activate.config.js"></script>
+    <script src="app/activate/activate.controller.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<!-- endbuild -->
+
+</body>
+
 </html>

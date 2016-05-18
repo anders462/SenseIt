@@ -1,0 +1,162 @@
+  <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 550px}
+
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+
+    /* On small screens, set height to 'auto' for the grid */
+    @media screen and (max-width: 767px) {
+      .row.content {height: auto;}
+    }
+  </style>
+
+
+
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav hidden-xs">
+      <h2>SenseIt</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active"><a href="#section1">Dashboard</a></li>
+        <li><a href="#section2">Devices</a></li>
+        <li><a href="#section3">Sensors</a></li>
+        <li><a href="#section3">Triggers/Alarms</a></li>
+        <li><a href="#section3">Settings</a></li>
+      </ul><br>
+    </div>
+    <br>
+
+    <div class="col-sm-9">
+      <div class="well">
+        <h4>Dashboard</h4>
+        <p>Some text..</p>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="well" ng-controller="DeviceController as devCtrl" >
+            <h4>Devices</h4>
+            <p>{{vm.deviceData.length}}</p>
+            <button type="button" class="btn btn-success btn-sm" ng-click="devCtrl.openDeviceModal()">+</button> &nbsp; &nbsp;
+          </div>
+        </div>
+        <div class="col-sm-3" ng-controller="SensorController as senCtrl">
+          <div class="well">
+            <h4>Sensors</h4>
+            <p>{{vm.sensorData.length}}</p>
+            <button type="button" class="btn btn-success btn-sm" ng-click="senCtrl.openSensorModal()">+</button> &nbsp; &nbsp;
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="well">
+            <h4>Messages</h4>
+            <p>{{vm.messages}}</p>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="well">
+            <h4>Alarms</h4>
+            <p>30%</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="well">
+          <select class="" name="">
+            <option ng-repeat="sensor in vm.sensorData">{{sensor.sensorName}}</option>
+          </select>
+          <div ng-repeat="measurement in vm.sensorData[1].data">
+            {{measurement}}</br>
+          </div>
+            <p>Historical data Graph</p>
+
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="well">
+            Live Data
+            <table class="table-striped">
+              <thead>
+                <tr>
+                  <th>
+                    Sensor 1
+                  </th>
+                  <th>
+                    Sensor 2
+                  </th>
+                  <th>
+                    Sensor 3
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+
+              <tr>
+                <td>
+                  23
+                </td>
+                <td>
+                  45
+                </td>
+                <td>
+                  46
+                </td>
+              </tr>
+            </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="well">
+            Alarms
+            <table class="table-striped">
+              <thead>
+                <tr>
+                  <th>
+                    Sensor 1
+                  </th>
+                  <th>
+                    Sensor 2
+                  </th>
+                  <th>
+                    Sensor 3
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+
+              <tr>
+                <td>
+                  Green
+                </td>
+                <td>
+                  Red
+                </td>
+                <td>
+                  Green
+                </td>
+              </tr>
+            </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="well">
+            <p>Text</p>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="well">
+            <p>Text</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

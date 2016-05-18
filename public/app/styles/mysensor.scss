@@ -1,0 +1,67 @@
+$primary-color: #ffffff;
+$footer-color: #bdbdbd;
+
+
+
+body {
+ background-color: $primary-color;
+}
+
+/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+/* Add a gray background color and some padding to the footer */
+footer {
+ background-color: $footer-color;
+ padding: 25px;
+
+ ul {
+   list-style-type: none;
+ }
+
+}
+
+.form-group {
+
+.help-block {
+  display: none;
+}
+
+}
+
+.form-group.has-error {
+
+.help-block {
+  display: block;
+}
+
+}
+
+// input.ng-pristine {
+//   background-color: green;
+// }
+//
+// input.ng-dirty {
+//   background-color: red;
+// }
+//
+// input.ng-valid {
+//   border: 3px solid black;
+// }
+//
+// input.ng-invalid {
+//   border: 3px solid red;
+// }
+
+.main {
+    height: 500px;
+    background-image: url("../images/1900_600.png");
+    background-size: contain;
+
+    h1 {
+      padding: 100px;
+    }
+}
