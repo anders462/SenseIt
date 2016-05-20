@@ -21,6 +21,15 @@
                   </select>
                   <span class="help-block" ng-if="sensorForm.sensorType.$error.required && sensorForm.sensorType.$touched">Sensor Type is required!</span>
                 </div>
+                <div class="form-group" ng-class="{'has-error': sensorForm.deviceId.$invalid && sensorForm.deviceId.$touched}">
+                  <select class="form-control input-sm" name="deviceId" ng-required="true" ng-model="vm.deviceId">
+                    <option  value="">Connected to device</option>
+                    <option  value="0">Standalone Sensor</option>
+                    <option ng-repeat="device in deviceData" value="{{device._id}}">{{device.deviceName}}</option>
+                  </select>
+                  <span class="help-block" ng-if="sensorForm.deviceId.$error.required && sensorForm.deviceId.$touched">Device is required!</span>
+                </div>
+                {{vm.deviceData}}
                 <div class="form-group" ng-class="{'has-error': sensorForm.sensorUnit.$invalid && sensorForm.sensorUnit.$touched}">
                   <select class="form-control input-sm" name="sensorUnit" ng-required="true" ng-model="vm.sensorData.sensorType.units">
                       <option value="">Sensor Unit</option>
@@ -43,7 +52,8 @@
             <strong>Sensor: </strong>{{vm.sensorName}}</br>
             <strong>Topic: </strong><em>{{vm.sensorTopic}}</em>
           </div>
-          <button type="button" class="btn btn-success btn-sm" ng-click="vm.goToActivate()">Activate</button> &nbsp; &nbsp;
+          <button ng-show="!vm.activated" type="button" class="btn btn-success btn-sm" ng-click="vm.goToActivate()">Activate</button> &nbsp; &nbsp;
+          <button ng-show="vm.activated" type="button" class="btn btn-success btn-sm" ng-click="vm.goToDashboard()">Go to Dashboard</button> &nbsp; &nbsp;
 
         </div>
         <div>

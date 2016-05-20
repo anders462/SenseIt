@@ -36,30 +36,37 @@
         <p>Some text..</p>
       </div>
       <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <div class="well" ng-controller="DeviceController as devCtrl" >
             <h4>Devices</h4>
             <p>{{vm.deviceData.length}}</p>
             <button type="button" class="btn btn-success btn-sm" ng-click="devCtrl.openDeviceModal()">+</button> &nbsp; &nbsp;
           </div>
         </div>
-        <div class="col-sm-3" ng-controller="SensorController as senCtrl">
+        <div class="col-sm-2" ng-controller="SensorController as senCtrl">
           <div class="well">
             <h4>Sensors</h4>
             <p>{{vm.sensorData.length}}</p>
             <button type="button" class="btn btn-success btn-sm" ng-click="senCtrl.openSensorModal()">+</button> &nbsp; &nbsp;
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <div class="well">
             <h4>Messages</h4>
             <p>{{vm.messages}}</p>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <div class="well">
             <h4>Alarms</h4>
             <p>30%</p>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="well" ng-controller="ActivateController as actCtrl">
+            <h4>Account Activated</h4>
+            <p>{{vm.activated}}</p>
+            <button type="button" class="btn btn-success btn-sm" ng-click="actCtrl.openActivationModal()">Activate</button> &nbsp; &nbsp;
           </div>
         </div>
       </div>

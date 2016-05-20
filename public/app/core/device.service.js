@@ -44,23 +44,11 @@ angular
         return $http.delete(BASE_URL +'devices/' + deviceId, {headers: {"x-access-token": $window.localStorage.token}});
       }
 
-      // Delete device with deviceId
+      // Update device with deviceId
       var updateDevice = function(deviceId) {
         return $http.delete(BASE_URL +'devices/' + deviceId, {headers: {"x-access-token": $window.localStorage.token}});
       }
 
-
-      var cacheDevices = function(devices){
-        console.log("data to be cached",devices)
-        devices.forEach(function(device){
-          deviceData.push(device);
-          notify();
-        })
-      }
-
-      var getCachedDevices = function(){
-        return deviceData;
-      }
 
       //Creates a handler to listen to device updates
       var subscribe = function(scope, callback) {
@@ -72,6 +60,13 @@ angular
               $rootScope.$emit('devicesUpdated');
           }
 
+      var cacheDevices = function(data){
+            deviceData = data;
+          }
+
+      var getCashedDevices = function(){
+            return deviceData;
+          }
 
 
 
@@ -82,9 +77,9 @@ angular
         getDevice: getDevice,
         deleteDevice: deleteDevice,
         updateDevice: updateDevice,
-        cacheDevices: cacheDevices,
-        getCachedDevices: getCachedDevices,
         subscribe: subscribe,
+        cacheDevices: cacheDevices,
+        getCashedDevices: getCashedDevices,
         notify: notify
       };
 

@@ -6,20 +6,15 @@ angular
   .module('SenseIt.core')
     .factory('activateFactory', activateFactory);
 
-    activateFactory.$inject = ['BASE_URL', '$http', '$window'];
+    activateFactory.$inject = [
+      'BASE_URL',
+      '$http',
+      '$window',
+      '$rootScope'
+    ];
 
-    function activateFactory (BASE_URL, $http,$window){
+    function activateFactory (BASE_URL, $http,$window,$rootScope){
 
-
-      // Get all sensors belonging to user
-      var getAllSensors = function() {
-        return $http.get(BASE_URL +'sensors',{headers: {"x-access-token": $window.localStorage.token}});
-      }
-
-      // Get all sensors belonging to user and sensorId
-      var getDeviceSensors = function(deviceId) {
-        return $http.get(BASE_URL +'sensors/' + deviceId,{headers: {"x-access-token": $window.localStorage.token}});
-      }
 
       // Activate MQTT account
       var activate = function(mqttPassword) {
@@ -27,35 +22,27 @@ angular
       }
 
 
-      // Delete all sensors for device Should this be allowed????
-      var deleteDeviceSensors = function(deviceId) {
-        return $http.delete(BASE_URL +'sensors/' + deviceId,{headers: {"x-access-token": $window.localStorage.token}});
+      // De Activate MQTT account
+      var deActivate = function(deviceId) {
+        return $http.delete(BASE_URL +'activated',{headers: {"x-access-token": $window.localStorage.token}});
       }
 
-
-      // Get sensor with deviceI and sensorId
-      var getSensor = function(deviceId, sensorId) {
-        return $http.get(BASE_URL + 'sensors/' + deviceId + "/" + sensorId, {headers: {"x-access-token": $window.localStorage.token}});
-      }
-
-
-      // Delete sensor with sensorId
-      var deleteSensor = function(deviceId, sensorId) {
-        return $http.delete(BASE_URL + 'sensors/' + deviceId + "/" + sensorId, {headers: {"x-access-token": $window.localStorage.token}});
-      }
-
-      // update sensor with deviceId and sensorId
-      var updateSensor = function(deviceId, sensorId,newSensorData) {
-        return $http.delete(BASE_URL + 'sensors/' + deviceId + "/" + sensorId, newSensorData,{headers: {"x-access-token": $window.localStorage.token}});
-      }
-
-
-
+      //Creates a handler to listen to device updates
+      var subscribe = function(scope, callback) {
+              var handler = $rootScope.$on('activationUpdated', callback);
+              scope.$on('$destroy', handler);
+          }
+      //notify change in devices
+      var notify = function(event) {
+              $rootScope.$emit('activationUpdated');
+          }
 
 
       return {
-        activate: activate
-
+        activate: activate,
+        deActivate: deActivate,
+        subscribe: subscribe,
+        notify: notify
       };
 
 

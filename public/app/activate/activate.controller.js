@@ -16,8 +16,12 @@ angular
   vm.activated = false;
 
   //opens up a Activate Modal Dialog
-    $scope.$on('$stateChangeSuccess',function(){
+    // $scope.$on('$stateChangeSuccess',function(){
+    //
+    //
+    // });
 
+    vm.openActivationModal = function(){
       $scope.activateTitle ="Activate your MQTT account";
       console.log("open Activate")
         ngDialog.open({
@@ -30,7 +34,7 @@ angular
            closeByNavigation: true,
            closeByEscape: false
         })
-    });
+    }
 ///ADD MIN PASSWORD LENGTH of 8
     vm.activate = function(){
       console.log("creds",vm.activationData)
@@ -41,6 +45,7 @@ angular
           vm.activated = response.data.resp.activated;
           console.log('activated',vm.activated)
           authFactory.setCurrentUserActivated(vm.activated);
+          activateFactory.notify();
           vm.mqttUsername = response.data.resp.username;
           vm.mqttPassword = response.data.resp.cmq_password;
           $scope.activateTitle ="Congrates your account is now activated";
@@ -64,7 +69,7 @@ angular
 
     vm.closeThisDialog = function(){
       ngDialog.close();
-      $location.path('/');
+      $location.path('/dashboard');
     }
 
     vm.goToDashboard = function(){

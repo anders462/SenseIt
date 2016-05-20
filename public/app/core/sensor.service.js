@@ -27,8 +27,9 @@ angular
         return $http.get(BASE_URL +'sensors/' + deviceId,{headers: {"x-access-token": $window.localStorage.token}});
       }
 
-      // Adds new sensor for device
+      // Adds new sensor for device, device is un connected Sensor
       var addSensorToDevice = function(sensorData,deviceId) {
+        console.log("deviceid",deviceId)
         return $http.post(BASE_URL +'sensors/' + deviceId, sensorData,{headers: {"x-access-token": $window.localStorage.token}});
       }
 
@@ -55,27 +56,25 @@ angular
         return $http.delete(BASE_URL + 'sensors/' + deviceId + "/" + sensorId, newSensorData,{headers: {"x-access-token": $window.localStorage.token}});
       }
 
-      var cacheSensors = function(sensors){
-        console.log("data to be cached",sensors)
-        sensors.forEach(function(sensor){
-          deviceData.push(sensor);
-          notify();
-        })
-      }
 
-      var getCachedSensors = function(){
-        return sensorData;
-      }
-
-      //Creates a handler to listen to device updates
+      //Creates a handler to listen to sensors updates
       var subscribe = function(scope, callback) {
-              var handler = $rootScope.$oUpdated', callback);
+              var handler = $rootScope.$on('sensorsUpdated', callback);
               scope.$on('$destroy', handler);
           }
+
       //notify change in devices
-      var notify = function(event) {
-              $rootScope.$emit('devicesUpdated');
+      var notify = function() {
+              $rootScope.$emit('sensorsUpdated');
           }
+
+      var cacheSensors = function(data){
+        sensorData = data;
+      }
+
+      var getCashedSensors = function(){
+        return sensorData;
+      }
 
 
 
@@ -86,7 +85,11 @@ angular
         deleteDeviceSensors: deleteDeviceSensors,
         getSensor: getSensor,
         deleteSensor: deleteSensor,
-        updateSensor: updateSensor
+        updateSensor: updateSensor,
+        subscribe: subscribe,
+        cacheSensors: cacheSensors,
+        getCashedSensors: getCashedSensors,
+        notify: notify
       };
 
 

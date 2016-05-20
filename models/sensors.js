@@ -15,8 +15,7 @@ var SensorSchema = new Schema({
       required: true
     },
     belongTo: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Device',
+      type: String,
       required: true
     },
     address: {

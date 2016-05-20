@@ -20,19 +20,19 @@ angular
 
   var vm = this; //set vm (view model) to reference main object
   vm.error = false;
-  vm.activated = false;
+  vm.activated = authFactory.getCurrentUser().activated;
 
   //opens up a Device Modal Dialog if new user
-    $scope.$on('$stateChangeSuccess',function(){
-      vm.activated = authFactory.getCurrentUser().activated;
-      console.log("activated",vm.activated);
-      if(!vm.activated){
-        $scope.deviceTitle ="Add your first Device";
-        vm.openDeviceModal();
-      }
-    });
+    // $scope.$on('$stateChangeSuccess',function(){
+    //   console.log("activated",vm.activated);
+    //   if(!vm.activated){
+    //     var title ="Add your first Device";
+    //     vm.openDeviceModal(title);
+    //   }
+    // });
 
-    vm.openDeviceModal = function(){
+    vm.openDeviceModal = function(title){
+      $scope.sensorTitle = title || "Add New Device";
       console.log("open Device")
         ngDialog.open({
            template: 'app/devices/devices.modal.html',
@@ -53,14 +53,19 @@ angular
           vm.deviceData = '';
           ngDialog.close();
           vm.error = false;
-          deviceFactory.cacheDevices([response.data.data])
+          deviceFactory.notify();
           console.log(response.data);
-          //$location.path('/sensors');
+          if(!vm.activated) {
+            $location.path('/dashboard');
+          } else {
+            $location.path('/dashboard');
+          }
         })
         .catch(function(err){
           if(err.status == 500){
             vm.errorMessage = "Device Name not unique!";
           } else {
+            console.log(err)
             vm.errorMessage = err.data.message;
           }
           vm.error = true;
@@ -69,7 +74,7 @@ angular
 
     vm.closeThisDialog = function(){
       ngDialog.close();
-      $location.path('/');
+      $location.path('/dashboard');
     }
 
 

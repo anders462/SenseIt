@@ -18,7 +18,7 @@ angular
                 templateUrl: 'app/common/header.html'
             },
             'content@': {
-               templateUrl: 'app/devices/devices.html',
+               templateUrl: 'app/dashboard/dashboard.html',
                controller:  'DeviceController',
                controllerAs: 'vm'
             },

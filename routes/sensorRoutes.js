@@ -42,7 +42,7 @@ sensorRouter.route('/:deviceId')
       });
 })
 
-//POST add sensor to deviceID
+//POST add sensor to deviceID, device 0 is un connected Sensor
 //UPDATES BOTH SENSOR AND DEVICE MODEL
 .post(Verify.verifyOrdinaryUser,function(req, res){
   req.body.sensorOwner = req.decoded._doc._id;
@@ -53,6 +53,7 @@ sensorRouter.route('/:deviceId')
             //throw err;  //ADD REAL error handler
           } else {
           console.log('Sensor created!');
+          if (req.params.deviceId != 0) {
           Devices.findByIdAndUpdate(req.params.deviceId, {$push: {sensors:sensor._id}}, function (err,resp){
             if (err) {
              res.status(500).json({error:err})
@@ -60,6 +61,10 @@ sensorRouter.route('/:deviceId')
             }
               res.status(200).json({"message": "sensor created", "data": sensor});
           })
+        } else{
+          res.status(200).json({"message": "sensor created not connected to device", "data": sensor});
+        }
+
 
         }
       });

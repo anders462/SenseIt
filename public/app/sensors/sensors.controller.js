@@ -14,11 +14,23 @@ angular
   var vm = this; //set vm (view model) to reference main object
   vm.error = false;
   vm.sensorCreated = false;
+  vm.activated = authFactory.getCurrentUser().activated;
+  //vm.deviceData =[{deviceName:"sss",_id:1}];
 
-  //opens up a Sensor Modal Dialog
-    $scope.$on('$stateChangeSuccess',function(){
+  //opens up a Sensor Modal Dialog if new user
+    // $scope.$on('$stateChangeSuccess',function(){
+    //   console.log("activated",vm.activated);
+    //
+    //   if(!vm.activated){
+    //     var title ="Add your first Sensor";
+    //     vm.openSensorModal(title);
+    //   }
+    // });
 
-      $scope.sensorTitle ="Add your first Sensor";
+    vm.openSensorModal = function(title){
+     $scope.deviceData = deviceFactory.getCashedDevices();
+      console.log("cashed",$scope.deviceData);
+      $scope.sensorTitle = title || "Add New Sensor";
       console.log("open Sensor")
         ngDialog.open({
            template: 'app/sensors/sensors.modal.html',
@@ -30,13 +42,15 @@ angular
            closeByNavigation: true,
            closeByEscape: false
         })
-    });
+
+    }
+
+
 
     vm.addSensor = function(){
-      var device = deviceFactory.getLastDevice();
-      console.log(device._id);
       console.log("sensor",vm.sensorData);
-      sensorFactory.addSensorToDevice(vm.sensorData,device._id)
+
+      sensorFactory.addSensorToDevice(vm.sensorData,vm.deviceId)
         .then(function(response){
           $scope.sensorTitle ="Your MQTT Sensor topic";
           vm.sensorCreated = true;
@@ -60,13 +74,19 @@ angular
 
     vm.closeThisDialog = function(){
       ngDialog.close();
-      $location.path('/');
+        $location.path('/dashboard');
     }
 
     vm.goToActivate = function(){
       ngDialog.close();
       $location.path('/activate');
     }
+
+    vm.goToDashboard = function(){
+      ngDialog.close();
+      $location.path('/dashboard');
+    }
+
 
 
   }

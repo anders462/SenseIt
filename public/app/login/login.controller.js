@@ -13,6 +13,8 @@ angular
 
   var vm = this; //set vm (view model) to reference main object
   vm.error = false;
+  vm.activated = authFactory.getCurrentUser().activated;
+
 
   //opens up a Login Modal Dialog
     $scope.$on('$stateChangeSuccess',function(){
@@ -37,8 +39,9 @@ angular
           vm.error = false;
           authFactory.setToken(response.data.token);
           authFactory.setCurrentUser(response.data.user);
+          vm.activated = authFactory.getCurrentUser().activated;
           console.log(response.data);
-          $location.path('/devices');
+          $location.path('/dashboard');
         })
         .catch(function(err){
           console.log(err.data.err.message);
@@ -46,8 +49,7 @@ angular
           vm.error = true;
           vm.errorMessage = err.data.err.message;
         })
-      // ngDialog.close();
-      // $location.path('/dashboard');
+
 
     }
 
