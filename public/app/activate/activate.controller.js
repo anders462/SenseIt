@@ -67,6 +67,26 @@ angular
         })
     }
 
+    vm.deActivate = function(){
+      activateFactory.deActivate()
+        .then(function(response){
+          vm.error = false;
+          vm.activated = response.data.resp.activated;
+          console.log('activated',vm.activated)
+          authFactory.setCurrentUserActivated(vm.activated);
+          activateFactory.notify();
+        })
+        .catch(function(err){
+          if(err.status == 500){
+            console.log(err)
+            vm.errorMessage = "Something went wrong!";
+          } else {
+            console.log(err)
+          }
+          vm.error = true;
+        })
+    }
+
     vm.closeThisDialog = function(){
       ngDialog.close();
       $location.path('/dashboard');

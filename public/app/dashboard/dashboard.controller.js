@@ -77,6 +77,7 @@ angular
      sensorFactory.subscribe($scope, function sensorUpdated() {
        console.log("sensors updated emit received");
        updateSensorModel();
+       console.log(sensorFactory.getCachedSensors);
       });
 
       activateFactory.subscribe($scope, function activationUpdated() {

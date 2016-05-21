@@ -1,0 +1,14 @@
+
+    <div class="ngdialog-message">
+        <div class="">
+            <h3>Your sensors </h3>
+        </div>
+        <div class="">&nbsp;</div>
+            <div class="" ng-repeat="sensor in sensorData">
+              <p><strong>Sensor Name:</strong>&nbsp{{sensor.sensorName}}</p>
+              <p><strong>Sensor Type:</strong>&nbsp{{sensor.sensorType.type}}</p>
+              <p><strong>Sensor Units:</strong>&nbsp{{sensor.sensorType.units}}</p>
+              <p><strong>Topic:</strong>&nbspmysensor/{{sensor.sensorOwner.username}}/{{sensor._id}}</p>
+              </br>
+            </div>
+    </div>

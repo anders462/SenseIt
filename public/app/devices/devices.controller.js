@@ -46,6 +46,21 @@ angular
         })
     }
 
+    vm.openDeviceListModal = function(title){
+      $scope.deviceData = deviceFactory.getCachedDevices();
+      console.log("open Device",$scope.deviceData )
+        ngDialog.open({
+           template: 'app/devices/devices.list.modal.html',
+           className: 'ngdialog-theme-default',
+           controller: 'DeviceController',
+           controllerAs: 'vm',
+           showClose: false,
+           scope: $scope,
+           closeByNavigation: true,
+           closeByEscape: false
+        })
+    }
+
     vm.addDevice = function(){
       console.log("device",vm.deviceData)
       deviceFactory.addDevice(vm.deviceData)

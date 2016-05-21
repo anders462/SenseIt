@@ -64,7 +64,7 @@ angular
             deviceData = data;
           }
 
-      var getCashedDevices = function(){
+      var getCachedDevices = function(){
             return deviceData;
           }
 
@@ -79,7 +79,7 @@ angular
         updateDevice: updateDevice,
         subscribe: subscribe,
         cacheDevices: cacheDevices,
-        getCashedDevices: getCashedDevices,
+        getCachedDevices: getCachedDevices,
         notify: notify
       };
 

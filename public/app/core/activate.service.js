@@ -23,8 +23,8 @@ angular
 
 
       // De Activate MQTT account
-      var deActivate = function(deviceId) {
-        return $http.delete(BASE_URL +'activated',{headers: {"x-access-token": $window.localStorage.token}});
+      var deActivate = function() {
+        return $http.delete(BASE_URL +'activate',{headers: {"x-access-token": $window.localStorage.token}});
       }
 
       //Creates a handler to listen to device updates

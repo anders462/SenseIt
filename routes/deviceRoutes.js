@@ -18,10 +18,13 @@ deviceRouter.route('/')
 //GET all devices from device owner with user id
 .get(Verify.verifyOrdinaryUser, function(req,res){
 
-  Devices.find({deviceOwner: req.decoded._doc._id},function (err, device) {
-          if (err) throw err;
-          res.json(device);
-      });
+  Devices.find({deviceOwner: req.decoded._doc._id})
+    .populate('deviceOwner')
+    .populate('sensors')
+    .exec(function (err, device) {
+      if (err) throw err;
+      res.json(device);
+  });
 })
 
 //POST a new device for user id

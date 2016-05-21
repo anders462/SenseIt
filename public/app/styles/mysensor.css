@@ -13,8 +13,118 @@ footer {
   footer ul {
     list-style-type: none; }
 
+.dashboard {
+  font-size: 2em;
+  margin-bottom: 30px; }
+
+.box {
+  color: white;
+  padding: 10px;
+  width-min: 150px;
+  margin-bottom: 15px;
+  height: 100px; }
+
+.box.devices {
+  background-color: #F44336;
+  border-color: #e73629; }
+
+.title {
+  position: absolute;
+  bottom: 8px;
+  right: 20px;
+  font-size: 14px;
+  font-family: arial; }
+
+.circle {
+  position: absolute;
+  top: 8px;
+  right: 30px;
+  font-size: 20px;
+  font-family: arial; }
+
+.box.sensors {
+  background: #4CAF50;
+  border-color: #3fa243; }
+
+.box.messages {
+  border-color: #1489e6;
+  background: #2196F3; }
+
+.box.alarms {
+  border-color: #f24a15;
+  background: #FF5722; }
+
+.box.activated {
+  background: rgba(0, 0, 0, 0.7);
+  border-color: gray; }
+
 .form-group .help-block {
   display: none; }
+
+.fa.fa-database {
+  font-size: 2em;
+  color: white; }
+
+.fa.fa-bell {
+  font-size: 2em;
+  color: white; }
+
+.fa.fa-circle.activated {
+  font-size: 3em;
+  color: green; }
+
+.fa.fa-circle.not-activated {
+  font-size: 3em;
+  color: red; }
+
+.fa.fa-times {
+  font-size: 1.5em;
+  color: white;
+  position: absolute;
+  top: 20px;
+  right: 35px; }
+
+.on {
+  font-size: 0.8em;
+  color: white;
+  background-color: #f40444;
+  border-radius: 10px;
+  border-color: white;
+  font-family: arial;
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  box-shadow: none important; }
+
+.off {
+  font-size: 0.8em;
+  color: white;
+  background-color: #40be26;
+  border-radius: 10px;
+  border-color: white;
+  font-family: arial;
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  box-shadow: none; }
+
+.fa.fa-plus {
+  font-size: 1.5em;
+  color: white;
+  position: absolute;
+  top: 20px;
+  right: 35px; }
+
+.plus-list {
+  font-size: 1.5em;
+  color: white;
+  position: absolute;
+  bottom: 20px;
+  left: 35px; }
+
+small {
+  font-family: arial;
+  font-size: 0.6em; }
 
 .form-group.has-error .help-block {
   display: block; }
@@ -25,5 +135,50 @@ footer {
   background-size: contain; }
   .main h1 {
     padding: 100px; }
+
+.beacon {
+  position: absolute;
+  top: 30px;
+  left: 50px;
+  background-color: #40be26;
+  height: 3em;
+  width: 3em;
+  border-radius: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%); }
+
+.beacon.deactive {
+  background-color: #f40444; }
+
+.beacon:before {
+  position: absolute;
+  content: "";
+  height: 3em;
+  width: 3em;
+  left: 0;
+  top: 0;
+  background-color: transparent;
+  border-radius: 50%;
+  box-shadow: 0px 0px 2px 2px #2980b9;
+  -webkit-animation: active 2s infinite linear;
+  animation: active 2s infinite linear; }
+
+@-webkit-keyframes active {
+  0% {
+    -webkit-transform: scale(0.1);
+    opacity: 1; }
+  70% {
+    -webkit-transform: scale(2.5);
+    opacity: 0; }
+  100% {
+    opacity: 0; } }
+@keyframes active {
+  0% {
+    transform: scale(0.1);
+    opacity: 1; }
+  70% {
+    transform: scale(2.5);
+    opacity: 0; }
+  100% {
+    opacity: 0; } }
 
 /*# sourceMappingURL=mysensor.css.map */

@@ -7,7 +7,13 @@ angular
   .module('SenseIt.sensors')
    .controller('SensorController',SensorController);
 
-  SensorController.$inject = ['$location','ngDialog','$scope','sensorFactory','deviceFactory','authFactory'];
+  SensorController.$inject = [
+    '$location',
+    'ngDialog',
+    '$scope',
+    'sensorFactory',
+    'deviceFactory',
+    'authFactory'];
 
   function SensorController($location,ngDialog,$scope, sensorFactory, deviceFactory,authFactory){
 
@@ -28,7 +34,7 @@ angular
     // });
 
     vm.openSensorModal = function(title){
-     $scope.deviceData = deviceFactory.getCashedDevices();
+     $scope.deviceData = deviceFactory.getCachedDevices();
       console.log("cashed",$scope.deviceData);
       $scope.sensorTitle = title || "Add New Sensor";
       console.log("open Sensor")
@@ -45,7 +51,20 @@ angular
 
     }
 
-
+    vm.openSensorListModal = function(title){
+      $scope.sensorData = sensorFactory.getCachedSensors();
+      console.log("open sensor list",$scope.sensorData )
+        ngDialog.open({
+           template: 'app/sensors/sensors.list.modal.html',
+           className: 'ngdialog-theme-default',
+           controller: 'SensorController',
+           controllerAs: 'vm',
+           showClose: false,
+           scope: $scope,
+           closeByNavigation: true,
+           closeByEscape: false
+        })
+    }
 
     vm.addSensor = function(){
       console.log("sensor",vm.sensorData);
@@ -56,6 +75,7 @@ angular
           vm.sensorCreated = true;
           vm.sensorData = '';
           var user = authFactory.getCurrentUser();
+          sensorFactory.notify()
           console.log("getuser",user)
           vm.sensorName = response.data.data.sensorName;
           vm.sensorTopic = "mysensor/" + user.username +'/' + response.data.data._id

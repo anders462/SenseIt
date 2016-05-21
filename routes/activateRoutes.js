@@ -79,12 +79,11 @@ provisioningRouter.route('/')
 
 })
 
-provisioningRouter.route('/:userName')
 
 //USER Deactivate user on CloudMqtt
 .delete(Verify.verifyOrdinaryUser, function(req,res){
   var options = {
-      url: BASE_URL + 'user/' + req.params.userName,
+      url: BASE_URL + 'user/' + req.decoded._doc.username,
       method: 'DELETE',
       headers: headers
   };

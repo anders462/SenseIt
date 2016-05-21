@@ -1,0 +1,21 @@
+
+    <div class="ngdialog-message">
+        <div class="">
+            <h3>Your Devices</h3>
+        </div>
+        <div class="">&nbsp;</div>
+          <div class="" ng-repeat="device in deviceData">
+            <p><strong>Device Name:</strong>&nbsp{{device.deviceName}}</p>
+            <p><strong>Device Type:</strong>&nbsp{{device.deviceType}}</p>
+            <p><strong>Topic:</strong>&nbspmysensor/{{device.deviceOwner.username}}/{{device._id}}</p>
+            <p><strong>Sensors connected to Device:</strong></p>
+              <p ng-show="device.sensors.length == 0"><em>No Sensors Connected to Device</em></p>
+              <ul ng-repeat="sensor in device.sensors">
+                <li><em><strong>Sensor Name:</strong></em>&nbsp{{sensor.sensorName}}</li>
+                <li><em><strong>Sensor Type:</strong></em>&nbsp{{sensor.sensorType.type}}</li>
+                <li><em><strong>Sensor Units:</strong></em>&nbsp{{sensor.sensorType.units}}</li>
+                <li><em><strong>Topic:</strong></em>&nbspmysensor/{{device.deviceOwner.username}}/{{sensor._id}}</li>
+              </ul></br>
+          </div>
+
+    </div>

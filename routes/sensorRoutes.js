@@ -20,7 +20,9 @@ sensorRouter.route('/')
 //GET all sensors belonging to user with user_id
 .get(Verify.verifyOrdinaryUser, function(req,res){
 
-  Sensors.find({sensorOwner: req.decoded._doc._id},function (err, device) {
+  Sensors.find({sensorOwner: req.decoded._doc._id})
+        .populate('sensorOwner')
+        .exec(function (err, device) {
           if (err) throw err;
           res.json(device);
       });

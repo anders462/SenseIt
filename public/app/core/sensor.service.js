@@ -72,7 +72,7 @@ angular
         sensorData = data;
       }
 
-      var getCashedSensors = function(){
+      var getCachedSensors = function(){
         return sensorData;
       }
 
@@ -88,7 +88,7 @@ angular
         updateSensor: updateSensor,
         subscribe: subscribe,
         cacheSensors: cacheSensors,
-        getCashedSensors: getCashedSensors,
+        getCachedSensors: getCachedSensors,
         notify: notify
       };
 
