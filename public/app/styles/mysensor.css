@@ -1,5 +1,5 @@
 body {
-  background-color: #ffffff; }
+  background-color: white; }
 
 /* Remove the navbar's default margin-bottom and rounded borders */
 .navbar {
@@ -8,10 +8,32 @@ body {
 
 /* Add a gray background color and some padding to the footer */
 footer {
-  background-color: #bdbdbd;
-  padding: 25px; }
+  background-color: #05264d;
+  padding: 25px;
+  color: white;
+  height: 200px; }
   footer ul {
     list-style-type: none; }
+  footer h5 {
+    font-size: 1.1em; }
+  footer a {
+    color: white; }
+
+.sensorTitle {
+  font-size: 1.5em;
+  color: gray; }
+
+input {
+  margin-top: 5px;
+  margin-bottom: 5px; }
+
+.sensorName {
+  font-size: 1.3em;
+  color: #e24f07; }
+
+.sensorData {
+  font-size: 2em;
+  color: gray; }
 
 .dashboard {
   font-size: 2em;
@@ -20,13 +42,36 @@ footer {
 .box {
   color: white;
   padding: 10px;
-  width-min: 150px;
   margin-bottom: 15px;
   height: 100px; }
 
 .box.devices {
   background-color: #F44336;
   border-color: #e73629; }
+
+.box.sensors {
+  background: #4CAF50;
+  border-color: #3fa243; }
+
+.box.messages {
+  border-color: #1489e6;
+  background: #2196F3; }
+
+.box.alarms {
+  border-color: #f24a15;
+  background: #FF5722; }
+
+.box-account {
+  background: white;
+  border-color: gray; }
+
+.box-livedata {
+  padding: 20px;
+  border: gray 2px solid;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px; }
 
 .title {
   position: absolute;
@@ -41,22 +86,6 @@ footer {
   right: 30px;
   font-size: 20px;
   font-family: arial; }
-
-.box.sensors {
-  background: #4CAF50;
-  border-color: #3fa243; }
-
-.box.messages {
-  border-color: #1489e6;
-  background: #2196F3; }
-
-.box.alarms {
-  border-color: #f24a15;
-  background: #FF5722; }
-
-.box.activated {
-  background: rgba(0, 0, 0, 0.7);
-  border-color: gray; }
 
 .form-group .help-block {
   display: none; }
@@ -111,12 +140,11 @@ footer {
 .fa.fa-plus {
   font-size: 1.5em;
   color: white;
-  position: absolute;
-  top: 20px;
   right: 35px; }
 
 .plus-list {
-  font-size: 1.5em;
+  font-family: arial;
+  font-size: 1.6em;
   color: white;
   position: absolute;
   bottom: 20px;
@@ -131,54 +159,48 @@ small {
 
 .main {
   height: 500px;
-  background-image: url("../images/1900_600.png");
-  background-size: contain; }
+  background-image: url("../images/Motherboard_450.jpg");
+  background-size: cover; }
+  .main a {
+    margin: 20px; }
   .main h1 {
-    padding: 100px; }
+    margin: 75px;
+    color: white;
+    font-size: 4em;
+    text-shadow: 2px 2px #000000; }
+  .main small {
+    color: white; }
+
+.example-box {
+  padding-top: 30px;
+  color: white;
+  background-color: #20211f;
+  height: 400px; }
+  .example-box h3 {
+    padding-top: 30px; }
+  .example-box p {
+    font-size: 1.5em; }
+  .example-box .fa.fa-wifi {
+    font-size: 8em;
+    color: white; }
+  .example-box .fa.fa-mobile {
+    font-size: 8em;
+    color: white; }
+  .example-box .fa.fa-desktop {
+    font-size: 8em;
+    color: white; }
 
 .beacon {
-  position: absolute;
-  top: 30px;
-  left: 50px;
+  position: relative;
+  top: 20px;
+  left: 50%;
   background-color: #40be26;
-  height: 3em;
-  width: 3em;
+  height: 2em;
+  width: 2em;
   border-radius: 50%;
   -webkit-transform: translateX(-50%) translateY(-50%); }
 
 .beacon.deactive {
   background-color: #f40444; }
-
-.beacon:before {
-  position: absolute;
-  content: "";
-  height: 3em;
-  width: 3em;
-  left: 0;
-  top: 0;
-  background-color: transparent;
-  border-radius: 50%;
-  box-shadow: 0px 0px 2px 2px #2980b9;
-  -webkit-animation: active 2s infinite linear;
-  animation: active 2s infinite linear; }
-
-@-webkit-keyframes active {
-  0% {
-    -webkit-transform: scale(0.1);
-    opacity: 1; }
-  70% {
-    -webkit-transform: scale(2.5);
-    opacity: 0; }
-  100% {
-    opacity: 0; } }
-@keyframes active {
-  0% {
-    transform: scale(0.1);
-    opacity: 1; }
-  70% {
-    transform: scale(2.5);
-    opacity: 0; }
-  100% {
-    opacity: 0; } }
 
 /*# sourceMappingURL=mysensor.css.map */

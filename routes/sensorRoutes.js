@@ -8,6 +8,7 @@ var Verify = require('./verify');
 
 
 
+
 var sensorRouter = express.Router();
 
 //exports dishRouter
@@ -112,20 +113,59 @@ sensorRouter.route('/:deviceId/:sensorId')
 //PUT update data for sensorId on deviceId
 //NEED TO CHECK IF BELONGTO IS BEEING UPDATED AND IN THAT CASE UPDATE DEVICE MODEL AS WELL
 .put(Verify.verifyOrdinaryUser,function(req, res){
-  Sensors.findOneAndUpdate({sensorOwner: req.decoded._doc._id, _id:req.params.sensorId}, {
-     $set: req.body
-      }, {
-        new: true
-      }, function (err, device) {
+  Sensors.findOneAndUpdate({sensorOwner: req.decoded._doc._id, _id:req.params.sensorId}, {$set: req.body}, {new: true}, function (err, sensor) {
         if (err) {
          res.status(500).json({error:err})
-          //throw err;  //ADD REAL error handler
-        } else {
-        res.json(device);
-      }
-      });
+       }
 
-})
+       if (req.params.deviceId != req.body.belongTo){
+         //the deviceId for the Sensor has changed and changes need to
+         //be done on the device(s) sensor Arrau
+          if (req.params.deviceId !="0") {
+            //the deviceId is not 0 means that sensor was connected with
+            //actual device not a standalone sensor
+            Devices.findOneAndUpdate({_id:req.params.deviceId},{$pull:{sensors:req.params.sensorId}}, {new:true}, function (err, resp){
+              //delete sensorid from old device sensor array
+                  if (err) {
+                   res.status(500).json({message:"error at delete sensor", error:err})
+                    //throw err;  //ADD REAL error handler
+                  }
+                  if (req.body.belongTo !="0"){
+                  //add the new sensorid to the newly attached device's sensor array
+                  Devices.findOneAndUpdate({_id:req.body.belongTo},{$push:{sensors:req.params.sensorId}}, {new:true}, function (err, resp){
+                    if (err) {
+                     res.status(500).json({message:"error at add sensor",error:err})
+                      //throw err;  //ADD REAL error handler
+                    }
+                    res.json(resp);
+                  });
+                } else {
+                  res.json(resp);
+                }
+
+                });
+
+          } else {
+            //sensor was standalone and the deviceId has changes, so its attached to a device
+            //device need to add sensorid to its sensor array
+            Devices.findOneAndUpdate({_id:req.body.belongTo},{$push:{sensors:req.params.sensorId}}, {new:true}, function (err, resp){
+                  if (err) {
+                   res.status(500).json({error:err})
+                    //throw err;  //ADD REAL error handler
+                  }
+                  res.json(resp);
+                });
+          }
+       } else {
+         res.json(sensor);
+       }
+
+    });
+  })
+
+
+
+
 
 //DELETE sensor with sensorId on deviceID
 //UPDATES BOTH SENSOR AND DEVICE MODEL
@@ -135,7 +175,7 @@ sensorRouter.route('/:deviceId/:sensorId')
     if (err) {
      res.status(500).json({error:err})
       //throw err;  //ADD REAL error handler
-    } else {
+    } else if (req.params.deviceId != "0") {
       Devices.findOneAndUpdate({_id:req.params.deviceId},{$pull:{sensors:req.params.sensorId}}, {new:true}, function (err, resp){
         if (err) {
          res.status(500).json({error:err})
@@ -144,6 +184,10 @@ sensorRouter.route('/:deviceId/:sensorId')
           res.json(resp);
         }
         })
-    }          ///UPDATE DEVICE
+    } else {
+      res.json(resp);
+    }
+
+              ///UPDATE DEVICE
   });
 });

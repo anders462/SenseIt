@@ -1,11 +1,12 @@
 $primary-color: #ffffff;
-$footer-color: #bdbdbd;
+$footer-color: #05264d;
 
 
 
 body {
- background-color: $primary-color;
+ background-color: white;
 }
+
 
 /* Remove the navbar's default margin-bottom and rounded borders */
 .navbar {
@@ -17,11 +18,45 @@ body {
 footer {
  background-color: $footer-color;
  padding: 25px;
+ color: white;
+ height: 200px;
 
  ul {
    list-style-type: none;
  }
 
+ h5 {
+   font-size: 1.1em;
+ }
+
+ a {
+   color: white;
+ }
+
+}
+.sensorTitle {
+  font-size: 1.5em;
+  color: gray;
+}
+
+input {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+
+// .dataTable {
+//   margin-left: 20px;
+//   margin-right: 20px;
+// }
+
+.sensorName {
+  font-size: 1.3em;
+  color: rgb(226, 79, 7);
+}
+.sensorData {
+  font-size: 2em;
+  color: gray;
 }
 
 .dashboard {
@@ -32,7 +67,7 @@ footer {
 .box {
   color: white;
   padding: 10px;
-  width-min: 150px;
+  // width-min: 150px;
   margin-bottom: 15px;
   height: 100px;
 }
@@ -42,6 +77,36 @@ footer {
     border-color: #e73629;
 
   }
+
+  .box.sensors {
+    background: #4CAF50;
+    border-color: #3fa243;
+  }
+
+  .box.messages {
+    border-color: #1489e6;
+    background: #2196F3;
+  }
+
+  .box.alarms {
+    border-color: #f24a15;
+    background: #FF5722;
+  }
+
+  .box-account {
+    background: white;
+    border-color: gray;
+  }
+
+.box-livedata {
+  padding:20px;
+  border: gray 2px solid;
+  margin-left: 20px;
+  margin-right:20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+}
 
 .title {
     position: absolute;
@@ -59,26 +124,6 @@ footer {
       font-family: arial;
   }
 
-
-  .box.sensors {
-    background: #4CAF50;
-    border-color: #3fa243;
-  }
-
-  .box.messages {
-    border-color: #1489e6;
-    background: #2196F3;
-  }
-
-  .box.alarms {
-    border-color: #f24a15;
-    background: #FF5722;
-  }
-
-  .box.activated {
-    background: rgba(#000000, 0.7);
-    border-color: gray;
-  }
 
 .form-group {
 
@@ -146,13 +191,14 @@ footer {
 .fa.fa-plus {
   font-size:1.5em;
   color: white;
-  position: absolute;
-  top: 20px;
+  // position: absolute;
+  // top: 20px;
   right: 35px;
 }
 
 .plus-list {
-  font-size:1.5em;
+  font-family: arial;
+  font-size:1.6em;
   color: white;
   position: absolute;
   bottom: 20px;
@@ -177,22 +223,60 @@ small {
 
 .main {
     height: 500px;
-    background-image: url("../images/1900_600.png");
-    background-size: contain;
-
-    h1 {
-      padding: 100px;
+    background-image: url("../images/Motherboard_450.jpg");
+    background-size: cover;
+    a {
+      margin: 20px;
     }
+    h1 {
+      margin: 75px;
+      color: white;
+      font-size:4em;
+      text-shadow: 2px 2px #000000;
+    }
+
+    small {
+      color: white;
+    }
+}
+
+.example-box {
+  padding-top: 30px;
+  color:white;
+  background-color:rgb(32, 33, 31);
+  height:400px;
+  h3 {
+    padding-top: 30px;
+  }
+  p {
+    font-size: 1.5em;
+  }
+
+  .fa.fa-wifi {
+    font-size: 8em;
+    color:white;
+  }
+
+  .fa.fa-mobile {
+    font-size: 8em;
+    color:white;
+  }
+
+  .fa.fa-desktop {
+    font-size: 8em;
+    color:white;
+
+  }
 }
 
 
 .beacon{
-  position:absolute;
-  top:30px;
-  left:50px;
+  position:relative;;
+  top:20px;
+  left:50%;
   background-color:rgb(64, 190, 38);
-  height:3em;
-  width:3em;
+  height:2em;
+  width:2em;
   border-radius:50%;
   -webkit-transform:translateX(-50%) translateY(-50%);
 }
@@ -200,44 +284,44 @@ small {
 .beacon.deactive {
   background-color:rgb(244, 4, 68);
 }
-.beacon:before{
-  position:absolute;
-  content:"";
-  height:3em;
-  width:3em;
-  left:0;
-  top:0;
-  background-color:transparent;
-  border-radius:50%;
-  box-shadow:0px 0px 2px 2px #2980b9;
-  -webkit-animation:active 2s infinite linear;
-  animation:active 2s infinite linear;
-}
-
-@-webkit-keyframes active{
-  0%{
-    -webkit-transform:scale(.1);
-    opacity:1;
-  }
-  70%{
-    -webkit-transform:scale(2.5);
-    opacity:0;
-  }
-  100%{
-    opacity:0;
-  }
-}
-
-@keyframes active{
-  0%{
-    transform:scale(.1);
-    opacity:1;
-  }
-  70%{
-    transform:scale(2.5);
-    opacity:0;
-  }
-  100%{
-    opacity:0;
-  }
-}
+// .beacon:before{
+//   // position:absolute;
+//   content:"";
+//   height:2em;
+//   width:2em;
+//   left:0;
+//   top:0;
+//   background-color:transparent;
+//   border-radius:50%;
+//   box-shadow:0px 0px 2px 2px #2980b9;
+//   -webkit-animation:active 2s infinite linear;
+//   animation:active 2s infinite linear;
+// }
+//
+// @-webkit-keyframes active{
+//   0%{
+//     -webkit-transform:scale(.1);
+//     opacity:1;
+//   }
+//   70%{
+//     -webkit-transform:scale(2.5);
+//     opacity:0;
+//   }
+//   100%{
+//     opacity:0;
+//   }
+// }
+//
+// @keyframes active{
+//   0%{
+//     transform:scale(.1);
+//     opacity:1;
+//   }
+//   70%{
+//     transform:scale(2.5);
+//     opacity:0;
+//   }
+//   100%{
+//     opacity:0;
+//   }
+// }

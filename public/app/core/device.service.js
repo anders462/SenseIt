@@ -16,37 +16,37 @@ angular
 
     function deviceFactory (BASE_URL, $http,$window,$rootScope){
       var deviceData = [];
-      // Adds new device
+      // Adds new device (USED)
       var addDevice = function(deviceData) {
         return $http.post(BASE_URL +'devices',deviceData,{headers: {"x-access-token": $window.localStorage.token}});
       }
 
-      // Get all devices beloning to user
+      // Get all devices beloning to user (USED)
       var getDevices = function() {
         return $http.get(BASE_URL +'devices',{headers: {"x-access-token": $window.localStorage.token}});
       }
 
 
-      // Delete all devices Should this be allowed????
+      // Delete all devices Should this be allowed???? (Not USED)
       var deleteDevices = function() {
         return $http.delete(BASE_URL +'devices',{headers: {"x-access-token": $window.localStorage.token}});
       }
 
 
-      // Get all device with deviceId
+      // Get all device with deviceId (Not USED)
       var getDevice = function(deviceId) {
         return $http.get(BASE_URL +'devices/' + deviceId, {headers: {"x-access-token": $window.localStorage.token}});
       }
 
 
-      // Delete device with deviceId
+      // Delete device with deviceId (USED)
       var deleteDevice = function(deviceId) {
         return $http.delete(BASE_URL +'devices/' + deviceId, {headers: {"x-access-token": $window.localStorage.token}});
       }
 
-      // Update device with deviceId
-      var updateDevice = function(deviceId) {
-        return $http.delete(BASE_URL +'devices/' + deviceId, {headers: {"x-access-token": $window.localStorage.token}});
+      // Update device with deviceId (USED)
+      var updateDevice = function(deviceId,newDeviceData) {
+        return $http.put(BASE_URL +'devices/' + deviceId, newDeviceData, {headers: {"x-access-token": $window.localStorage.token}});
       }
 
 

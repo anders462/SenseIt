@@ -1,6 +1,6 @@
 
 var request = require('request');
-var cloudMqtt = require('../cloudMqtt');
+var cloudMqtt = require('../mqtt_config');
 var express = require('express');
 var mongoose = require('mongoose');
 var Users = require('../models/user');

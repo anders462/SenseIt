@@ -7,23 +7,45 @@ angular
   .module('SenseIt.activate')
    .controller('ActivateController',ActivateController);
 
-  ActivateController.$inject = ['$location','ngDialog','$scope','activateFactory','authFactory'];
+  ActivateController.$inject = [
+  '$location',
+  'ngDialog',
+  '$scope',
+  'activateFactory',
+  'authFactory',
+  'mqttFactory'
+];
 
-  function ActivateController($location,ngDialog, $scope, activateFactory,authFactory){
+
+  function ActivateController($location,ngDialog, $scope, activateFactory,authFactory,mqttFactory){
 
   var vm = this; //set vm (view model) to reference main object
   vm.error = false;
-  vm.activated = false;
+  vm.activated = authFactory.getCurrentUser().activated;
+  vm.mqttUsername = authFactory.getCurrentUser().username;
+  vm.mqttPassword = '*******'
 
-  //opens up a Activate Modal Dialog
-    // $scope.$on('$stateChangeSuccess',function(){
-    //
-    //
-    // });
+    // call createMqttClient with 10 sec delay to take into
+    //acount creation delay on cloudmqtt side as well, make sure
+    //retry doesn't happen to often at connection fail or loss
+    vm.connectMqtt = function(){
+      var timeOut = setTimeout(function(){
+        clearTimeout(timeOut);
+        mqttFactory.createMqttClient()
+      },10000);
+    };
+
+    //if customer is already activated try to connect to mqtt service
+    if(vm.activated){
+      vm.connectMqtt();
+    }
+
+
 
     vm.openActivationModal = function(){
-      $scope.activateTitle ="Activate your MQTT account";
+      $scope.activateTitle ="MQTT Account Settings";
       console.log("open Activate")
+
         ngDialog.open({
            template: 'app/activate/activate.modal.html',
            className: 'ngdialog-theme-default',
@@ -33,8 +55,9 @@ angular
            scope: $scope,
            closeByNavigation: true,
            closeByEscape: false
-        })
-    }
+        });
+    };
+
 ///ADD MIN PASSWORD LENGTH of 8
     vm.activate = function(){
       console.log("creds",vm.activationData)
@@ -46,12 +69,9 @@ angular
           console.log('activated',vm.activated)
           authFactory.setCurrentUserActivated(vm.activated);
           activateFactory.notify();
-          vm.mqttUsername = response.data.resp.username;
-          vm.mqttPassword = response.data.resp.cmq_password;
-          $scope.activateTitle ="Congrates your account is now activated";
-
+          $scope.activateSubTitle ="Account is activated";
+          vm.connectMqtt();
           console.log(response.data);
-          //$location.path('/dashboard')
         })
         .catch(function(err){
           if(err.status == 500){
@@ -96,6 +116,11 @@ angular
       ngDialog.close();
       $location.path('/dashboard');
     }
+
+    mqttFactory.subscribe($scope, function connectionLost() {
+      console.log("connectionLost");
+      vm.connectMqtt();
+    });
 
 
 

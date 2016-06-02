@@ -18,7 +18,7 @@ angular
                 templateUrl: 'app/common/header.html'
             },
             'content@': {
-               templateUrl: 'app/register/register.html',
+               templateUrl: 'app/home/home.html',
                controller:  'RegisterController',
                controllerAs: 'vm'
             },

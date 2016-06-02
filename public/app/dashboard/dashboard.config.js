@@ -27,7 +27,7 @@ angular
             }
           },
           data : {
-            authenticate: false
+            authenticate: true
           }
 
         });

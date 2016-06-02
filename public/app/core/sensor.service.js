@@ -17,7 +17,7 @@ angular
 
       var sensorData = [];
 
-      // Get all sensors belonging to user
+      // Get all sensors belonging to user (USED)
       var getAllSensors = function() {
         return $http.get(BASE_URL +'sensors',{headers: {"x-access-token": $window.localStorage.token}});
       }
@@ -27,7 +27,7 @@ angular
         return $http.get(BASE_URL +'sensors/' + deviceId,{headers: {"x-access-token": $window.localStorage.token}});
       }
 
-      // Adds new sensor for device, device is un connected Sensor
+      // Adds new sensor for device, device is un connected Sensor (USED)
       var addSensorToDevice = function(sensorData,deviceId) {
         console.log("deviceid",deviceId)
         return $http.post(BASE_URL +'sensors/' + deviceId, sensorData,{headers: {"x-access-token": $window.localStorage.token}});
@@ -46,14 +46,14 @@ angular
       }
 
 
-      // Delete sensor with sensorId
+      // Delete sensor with sensorId (USED)
       var deleteSensor = function(deviceId, sensorId) {
         return $http.delete(BASE_URL + 'sensors/' + deviceId + "/" + sensorId, {headers: {"x-access-token": $window.localStorage.token}});
       }
 
-      // update sensor with deviceId and sensorId
-      var updateSensor = function(deviceId, sensorId,newSensorData) {
-        return $http.delete(BASE_URL + 'sensors/' + deviceId + "/" + sensorId, newSensorData,{headers: {"x-access-token": $window.localStorage.token}});
+      // update sensor with deviceId and sensorId (USED)
+      var updateSensor = function(deviceId, sensorId, newSensorData) {
+        return $http.put(BASE_URL + 'sensors/' + deviceId + "/" + sensorId, newSensorData,{headers: {"x-access-token": $window.localStorage.token}});
       }
 
 

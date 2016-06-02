@@ -2,6 +2,8 @@
     <div class="ngdialog-message">
         <div class="">
             <h3>{{activateTitle}} </h3>
+            <h4 ng-show="!vm.activated">Your account is not Active</h4>
+            <h4 ng-show="vm.activated">Your account is Active</h4>
         </div>
         <div class="">&nbsp;</div>
         <div class="well well-sm">
@@ -21,13 +23,14 @@
         </div>
         <div class="" ng-if="vm.activated">
           <div class="well well-sm">
-            Your MQTT credentials to connect, please take note of this:
+            Your MQTT credentials to connect, please take note of this, as Password only be shown at activation.<em> If you don't remember your password you need to deactive and reactive your account</em>:</br></br>
             <ul>
               <li>Hostname: mqtt://m12.cloudmqtt.com:12337</li>
               <li>Username: {{vm.mqttUsername}}</li>
               <li>Password: {{vm.mqttPassword}}</li>
-            </ul>
-            <button type="button" class="btn btn-success btn-sm" ng-click=vm.goToDashboard()>Go to Dashboard</button> &nbsp; &nbsp;
+            </ul></br>
+            <button type="button" class="btn btn-danger btn-sm" ng-click=vm.deActivate()>Deactivate Account</button> &nbsp; &nbsp;
+            <button type="button" class="btn btn-success btn-sm" ng-click=vm.goToDashboard()>Back to Dashboard</button> &nbsp; &nbsp;
           </div>
         </div>
         <div>

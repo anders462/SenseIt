@@ -77,7 +77,7 @@
   max-width: 100%;
   padding: 1em;
   position: relative;
-  width: 450px;
+  width: 400px;
 }
 
 .ngdialog.ngdialog-theme-default .ngdialog-close {
@@ -143,9 +143,9 @@
   outline: none;
 }
 
-.ngdialog.ngdialog-theme-default .ngdialog-buttons {
+/*.ngdialog.ngdialog-theme-default .ngdialog-buttons {
   *zoom: 1;
-}
+}*/
 
 .ngdialog.ngdialog-theme-default .ngdialog-buttons:after {
   content: '';

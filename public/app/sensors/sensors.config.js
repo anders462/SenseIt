@@ -27,7 +27,7 @@ angular
             }
           },
           data : {
-            authenticate: false  //TRUE in non testing mode
+            authenticate: true  //TRUE in non testing mode
           }
 
         });

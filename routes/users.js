@@ -4,9 +4,11 @@ var passport = require('passport');
 var User = require('../models/user');
 var Verify = require('./verify');
 
+
+//TODO: CHECK SO THAT TOKEN OBJECT IS NOT CONTAINING PASSWORDS ETC
 /* GET users listing. */
 
-router.get('/',function(req, res) { ///ADD VERIFY ADMIN TO DO GET OF ALL USERS!!
+router.get('/',Verify.verifyOrdinaryUser, Verify.verifyAdmin,function(req, res) { ///ADD VERIFY ADMIN TO DO GET OF ALL USERS!!
     User.find({}, function(err,user){
       if(err){
         return res.status(500).json({err:err});
@@ -16,6 +18,23 @@ router.get('/',function(req, res) { ///ADD VERIFY ADMIN TO DO GET OF ALL USERS!!
     })
 
   });
+
+  router.get('/me',Verify.verifyOrdinaryUser, function(req, res) { ///ADD VERIFY ADMIN TO DO GET OF ALL USERS!!
+      User.findOne({_id:req.decoded._doc._id}, function(err,user){
+        if(err){
+          return res.status(500).json({err:err});
+        }
+        console.log("test")
+        var userData = {
+          "username":user.username,
+          "token":user.token,
+          "activated": user.activated,
+          "mqtt":user.cmq_password
+        }
+        res.json(userData);
+      })
+
+    });
 
 
   router.post('/register', function(req, res) {
@@ -76,7 +95,7 @@ router.post('/login', function(req, res, next) {
 
 router.get('/logout', function(req, res) {
     req.logout();
-  res.status(200).json({
+    res.status(200).json({
     status: 'Bye!'
   });
 });

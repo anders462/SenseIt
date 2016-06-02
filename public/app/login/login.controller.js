@@ -4,7 +4,7 @@
 
 //register page sub module
 angular
-  .module('SenseIt.register')
+  .module('SenseIt.login')
    .controller('LoginController',LoginController);
 
   LoginController.$inject = ['$location','ngDialog','$scope','authFactory'];
@@ -13,7 +13,11 @@ angular
 
   var vm = this; //set vm (view model) to reference main object
   vm.error = false;
-  vm.activated = authFactory.getCurrentUser().activated;
+  if (authFactory.getCurrentUser()){
+    vm.activated = authFactory.getCurrentUser().activated || false;
+  } else {
+    vm.activated =  false;
+  }
 
 
   //opens up a Login Modal Dialog
@@ -39,6 +43,7 @@ angular
           vm.error = false;
           authFactory.setToken(response.data.token);
           authFactory.setCurrentUser(response.data.user);
+          authFactory.cacheAuthState(true);
           vm.activated = authFactory.getCurrentUser().activated;
           console.log(response.data);
           $location.path('/dashboard');
@@ -61,6 +66,17 @@ angular
     vm.openRegister = function(){
       ngDialog.close();
       $location.path('/register');
+    }
+
+    vm.doLogout = function(){
+      authFactory.logout()
+      .then(function(resp){
+        console.log("logged out");
+        authFactory.deleteToken();
+      })
+      .catch(function(err){
+        console.log(err);
+      })
     }
 
 

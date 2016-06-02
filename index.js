@@ -15,7 +15,6 @@ var deviceRouter = require('./routes/deviceRoutes');
 var sensorRouter = require('./routes/sensorRoutes');
 var activateRouter = require('./routes/activateRoutes');
 var dataRouter = require('./routes/dataRoutes');
-
 var mqttListner = require('./mqttListner');
 
 
@@ -35,6 +34,8 @@ app.set('port', (process.env.PORT || 8001));   // set port for server
 
 
 //add middlewares
+app.use(cors());  //add CORS to all routes
+
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev')); //add morgan middleware logger
 //add middleware parser for urlencoded body data POST and URL JSon params

@@ -6,10 +6,10 @@ angular
   .module('SenseIt.core')
     .factory('authFactory', authFactory);
 
-    authFactory.$inject = ['BASE_URL', '$http', '$window'];
+    authFactory.$inject = ['BASE_URL', '$http', '$window','$q'];
 
-    function authFactory (BASE_URL, $http,$window){
-
+    function authFactory (BASE_URL, $http,$window,$q){
+      var authState = false;
       // Returns Login resource
       var login = function(creds) {
         return $http.post(BASE_URL +'users/login',creds);
@@ -24,6 +24,36 @@ angular
       var update = function(creds) {
         return $http.put(BASE_URL +'users/update',creds,{headers: {"x-access-token": $window.localStorage.token}});
       }
+
+      var getMe = function() {
+        return $http.get(BASE_URL +'users/me',{headers: {"x-access-token": $window.localStorage.token}});
+      }
+
+
+      var isAuthenticated = function(){
+        var deferred = $q.defer();
+
+        getMe()
+        .then(function(resp){
+          console.log("authenticated",resp);
+          deferred.resolve(resp);
+        })
+        .catch(function(err){
+          console.log(err);
+          deferred.reject(err);
+        })
+        // return promise object
+        return deferred.promise;
+      }
+
+
+      var cacheAuthState = function(state) {
+        authState = state;
+      };
+
+      var getAuthState = function(state) {
+        return authState;
+      };
 
       //Sets the token in localStorage
       var setToken = function(token){
@@ -68,6 +98,7 @@ angular
 
 
 
+
       return {
         login: login,
         register: register,
@@ -77,7 +108,11 @@ angular
         update: update,
         setCurrentUser: setCurrentUser,
         getCurrentUser: getCurrentUser,
-        setCurrentUserActivated: setCurrentUserActivated
+        setCurrentUserActivated: setCurrentUserActivated,
+        getMe:getMe,
+        isAuthenticated: isAuthenticated,
+        getAuthState: getAuthState,
+        cacheAuthState: cacheAuthState
       };
 
 

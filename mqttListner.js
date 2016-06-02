@@ -3,14 +3,17 @@
 var mqtt = require('mqtt');
 var Data = require('./models/data');
 var Sensor = require('./models/sensors');
+var config = require('./mqtt_config');
+var unixTime = require('unix-time');
+
 
 var topic_master_listen = "mysensor/#"  //topic:  mysensor/user_1/rc/device_02/humidity
 
 module.exports = function(){
 //Main client
 var client = mqtt.connect('mqtt://m12.cloudmqtt.com:12337', {
-  username: 'master',
-  password: 'capstone_2016'
+  username: config.username_client,
+  password: config.password_client
 });
 
 
@@ -24,16 +27,18 @@ client.on('connect', function () {
 });
 
 client.on('message', function (topic, message) {
+  console.log(message.toString())
   var data = JSON.parse(message.toString());
   var sensorId = topic.split('/')[2];
-  console.log(data)
   if (sensorId && data){
-    console.log(typeof sensorId, sensorId)
-    var timeStamp = new Date();
     //Saves all sensor data. IMPLEMENT AVERAGING ALGORITHM OR REDIS CASHING
-      Sensor.findByIdAndUpdate(sensorId, {$push: {data:{value:data,timeStamp:timeStamp}}}, function(err,resp){
+    var timeReg = new Date();
+    var timeStamp = 1000*unixTime(timeReg);
+    var sample = {data: data.d,time: timeStamp}
+    console.log({data:data.d})
+      Sensor.findByIdAndUpdate(sensorId, {$push: {data:sample}}, function(err,resp){
         if (err) console.log(err);
-        console.log("saved");
+        console.log(resp);
    })
   }
 
