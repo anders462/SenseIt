@@ -8,7 +8,7 @@ body {
 
 /* Add a gray background color and some padding to the footer */
 footer {
-  background-color: #05264d;
+  background-color: #20211f;
   padding: 25px;
   color: white;
   height: 200px; }
@@ -174,7 +174,7 @@ small {
 .example-box {
   padding-top: 30px;
   color: white;
-  background-color: #20211f;
+  background-color: #05264d;
   height: 400px; }
   .example-box h3 {
     padding-top: 30px; }

@@ -1,3 +1,6 @@
+// For future use, Data for each sensor is now stored in sensor object,
+//in future releases this will most likley change
+
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 

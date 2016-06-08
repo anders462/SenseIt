@@ -1,2 +1,1 @@
-# smartsense
-# smartsense
+# SenseIt

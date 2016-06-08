@@ -129,29 +129,6 @@ router.put('/update', function(req, res, next) {
     });
   })(req,res,next);
 });
-  //   var user = {username: req.body.username,password: req.body.password};
-  //
-  //   req.logIn(user, function(err) {
-  //     if (err) {
-  //       return res.status(500).json({
-  //         err: 'Could not log in user'
-  //       });
-  //     }
-  //   res.status(200).json({
-  //            status: 'Password update successful!',
-  //            success: true
-  //      })
-  //   // });
-  //
-  //   // user.setPassword(req.body.newPassword, function(){
-  //   //     user.save();
-  //   //     res.status(200).json({
-  //   //           status: 'Password update successful!',
-  //   //           success: true
-  //   //     })
-  //   });
-  // });
-// });
 
 router.get('/facebook', passport.authenticate('facebook'),
   function(req, res){});

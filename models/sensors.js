@@ -42,8 +42,8 @@ var SensorSchema = new Schema({
     timestamps: true
 });
 
-
+//create Sensor model
 var Sensors = mongoose.model('Sensor', SensorSchema);
 
-// make this available to our Node applications
+// Export Sensor Model
 module.exports = Sensors;

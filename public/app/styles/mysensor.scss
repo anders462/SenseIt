@@ -16,7 +16,7 @@ body {
 
 /* Add a gray background color and some padding to the footer */
 footer {
- background-color: $footer-color;
+ background-color: rgb(32, 33, 31);
  padding: 25px;
  color: white;
  height: 200px;
@@ -243,7 +243,7 @@ small {
 .example-box {
   padding-top: 30px;
   color:white;
-  background-color:rgb(32, 33, 31);
+  background-color:$footer-color;
   height:400px;
   h3 {
     padding-top: 30px;

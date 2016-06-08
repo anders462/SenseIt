@@ -1,3 +1,5 @@
+//****This routes are not used in the current version****///////
+
 
 var express = require('express');
 var mongoose = require('mongoose');

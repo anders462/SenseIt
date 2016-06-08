@@ -15,7 +15,7 @@ var deviceRouter = require('./routes/deviceRoutes');
 var sensorRouter = require('./routes/sensorRoutes');
 var activateRouter = require('./routes/activateRoutes');
 var dataRouter = require('./routes/dataRoutes');
-var mqttListner = require('./mqttListner');
+var mqttListner = require('./mqtt/mqttListner');
 
 
 
@@ -30,7 +30,7 @@ db.once('open', function () {
 });
 
 var app = express();
-app.set('port', (process.env.PORT || 8001));   // set port for server
+app.set('port', (process.env.PORT || 3000));   // set port for server
 
 
 //add middlewares
@@ -52,8 +52,6 @@ app.use('/data', dataRouter);
 
 
 
-
-
 //Need to fix this error handler one!!!!!!!!!!
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -64,8 +62,10 @@ app.use(function(req, res, next) {
 
 // Start Mqtt listner
 mqttListner();
+
 // Start the server
 app.listen(app.get('port'), function(){
+  console.log(process.env);
   console.log("server is running on port " + app.get('port') + "...");
 });
 

@@ -40,9 +40,9 @@ var DeviceSchema = new Schema({
     timestamps: true
 });
 
-// the schema is useless so far
-// we need to create a model using it
+
+// Create Device Model
 var Devices = mongoose.model('Device', DeviceSchema);
 
-// make this available to our Node applications
+// Export Device Model
 module.exports = Devices;

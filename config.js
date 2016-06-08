@@ -1,9 +1,9 @@
 module.exports = {
-    'secretKey': '12345-67890-09876-54321',
-    'mongoUrl' : 'mongodb://localhost:27017/mysensor',
+    'secretKey': process.env.SECRET_KEY,
+    'mongoUrl' : process.env.MONGO_URL_DEV,
     'facebook': {
-        clientID: '520016754790146',
-        clientSecret: '968a383886d8a91a571b83097f1619a8',
-        callbackURL: 'https://localhost:3443/users/facebook/callback'
+        clientID: process.env.CLIENT_ID,
+        clientSecret: process.env.CLIENT_SECRET,
+        callbackURL: process.env.CALLBACK_URL
     }
 }

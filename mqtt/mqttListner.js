@@ -1,8 +1,8 @@
 
 
 var mqtt = require('mqtt');
-var Data = require('./models/data');
-var Sensor = require('./models/sensors');
+var Data = require('../models/data'); //Data Model not used in current version
+var Sensor = require('../models/sensors');
 var config = require('./mqtt_config');
 var unixTime = require('unix-time');
 
@@ -38,7 +38,7 @@ client.on('message', function (topic, message) {
     console.log({data:data.d})
       Sensor.findByIdAndUpdate(sensorId, {$push: {data:sample}}, function(err,resp){
         if (err) console.log(err);
-        console.log(resp);
+        // console.log(resp);
    })
   }
 
