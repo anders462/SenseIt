@@ -6,5 +6,5 @@ module.exports =
   password_client: process.env.PASSWORD_CLIENT,
   base_url: process.env.BASE_URL,
   mqtt: process.env.MQTT,
-  master_topic: process.MASTER_TOPIC
+  master_topic: process.env.MASTER_TOPIC
 }

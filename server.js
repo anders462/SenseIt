@@ -65,7 +65,6 @@ mqttListner();
 
 // Start the server
 app.listen(app.get('port'), function(){
-  console.log(process.env);
   console.log("server is running on port " + app.get('port') + "...");
 });
 
