@@ -11,20 +11,20 @@ var topic_master_listen = config.master_topic  //mqtt master topic
 
 module.exports = function(){
 //Main client
-// var client = mqtt.connect(config.mqtt, {
-//   username: config.username_client,
-//   password: config.password_client
-// });
+var client = mqtt.connect(config.mqtt, {
+  username: config.username_client,
+  password: config.password_client
+});
 //
 //
-// client.on('error', function(err){
-//   console.log("error",err);
-// });
+client.on('error', function(err){
+  console.log("error",err);
+});
 //
-// client.on('connect', function () {
-//   client.subscribe(topic_master_listen);
-//   console.log('client connected');
-// });
+client.on('connect', function () {
+  client.subscribe(topic_master_listen);
+  console.log('client connected');
+});
 //
 // client.on('message', function (topic, message) {
 //   console.log(message.toString())
