@@ -7,11 +7,11 @@ var config = require('./mqtt_config');
 var unixTime = require('unix-time');
 
 
-var topic_master_listen = "mysensor/#"  //topic:  mysensor/user_1/rc/device_02/humidity
+var topic_master_listen = config.master_topic  //mqtt master topic
 
 module.exports = function(){
 //Main client
-var client = mqtt.connect('mqtt://m12.cloudmqtt.com:12337', {
+var client = mqtt.connect(config.mqtt, {
   username: config.username_client,
   password: config.password_client
 });
