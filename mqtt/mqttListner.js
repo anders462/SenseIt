@@ -11,6 +11,7 @@ var topic_master_listen = config.master_topic  //mqtt master topic
 
 module.exports = function(){
 //Main client
+console.log("config",config);
 var client = mqtt.connect(config.mqtt, {
   username: config.username_client,
   password: config.password_client
