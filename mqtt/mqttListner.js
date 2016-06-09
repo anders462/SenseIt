@@ -7,25 +7,25 @@ var config = require('./mqtt_config');
 var unixTime = require('unix-time');
 
 
-var topic_master_listen = config.master_topic  //mqtt master topic
+// var topic_master_listen = config.master_topic  //mqtt master topic
 
 module.exports = function(){
 //Main client
 console.log("config",config);
-var client = mqtt.connect(config.mqtt, {
-  username: config.username_client,
-  password: config.password_client
-});
-//
-//
-client.on('error', function(err){
-  console.log("error",err);
-});
-//
-client.on('connect', function () {
-  client.subscribe(topic_master_listen);
-  console.log('client connected');
-});
+// var client = mqtt.connect(config.mqtt, {
+//   username: config.username_client,
+//   password: config.password_client
+// });
+// //
+// //
+// client.on('error', function(err){
+//   console.log("error",err);
+// });
+// //
+// client.on('connect', function () {
+//   client.subscribe(topic_master_listen);
+//   console.log('client connected');
+// });
 //
 // client.on('message', function (topic, message) {
 //   console.log(message.toString())
