@@ -35,9 +35,11 @@ client.on('message', function (topic, message) {
     var timeReg = new Date();
     var timeStamp = 1000*unixTime(timeReg);
     var sample = {data: data.d,time: timeStamp}
+    console.log(sensorId, sample);
     console.log({data:data.d})
       Sensor.findByIdAndUpdate(sensorId, {$push: {data:sample}}, function(err,resp){
         if (err) console.log(err);
+
    })
   }
 
