@@ -34,8 +34,8 @@ app.set('port', (process.env.PORT || 3000));   // set port for server
 
 
 //add middlewares
-app.options('*', cors()); // preflight cors include before other routes
-
+// app.options('*', cors()); // preflight cors include before other routes
+app.use(cors());
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev')); //add morgan middleware logger
 //add middleware parser for urlencoded body data POST and URL JSon params
