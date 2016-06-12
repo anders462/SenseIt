@@ -2,7 +2,7 @@
 
 'use strict';
 
-//register page sub module
+//device sub module controller
 angular
   .module('SenseIt.devices')
    .controller('DeviceController',DeviceController);
@@ -19,11 +19,12 @@ angular
   function DeviceController($location,ngDialog,$scope, deviceFactory, authFactory){
 
   var vm = this; //set vm (view model) to reference main object
-  vm.error = false;
-  vm.activated = authFactory.getCurrentUser().activated;
-  $scope.deviceIdData = {};
+  vm.error = false; //reset errors
+  vm.activated = authFactory.getCurrentUser().activated; //get cached status
+  $scope.deviceIdData = {}; //reset deviceIdData
 
 
+//retrieve chached device for specific id
     var getCachedDeviceId = function(deviceId){
       vm.deviceData = deviceFactory.getCachedDevices();
       vm.deviceData.forEach(function(device){
@@ -33,6 +34,7 @@ angular
       });
     }
 
+//open device add modal
     vm.openDeviceModal = function(title){
       $scope.deviceTitle = title || "Add New Device";
       console.log("open Device")
@@ -48,6 +50,7 @@ angular
         })
     }
 
+//open devic edit modal
     vm.openDeviceEditModal = function(deviceId){
     getCachedDeviceId(deviceId);
     console.log($scope.deviceIdData)
@@ -61,6 +64,7 @@ angular
         })
     }
 
+  //open device delete modal
     vm.openDeviceDeleteModal = function(deviceId){
       console.log("open device",deviceId)
       getCachedDeviceId(deviceId);
@@ -74,6 +78,7 @@ angular
         })
     }
 
+//device delete function
     vm.addDevice = function(){
       console.log("device",vm.deviceData)
       deviceFactory.addDevice(vm.deviceData)
@@ -81,8 +86,8 @@ angular
           vm.deviceData = '';
           ngDialog.close();
           vm.error = false;
-          deviceFactory.notify();
-          console.log(response.data);        
+          deviceFactory.notify(); //notify of device change
+          console.log(response.data);
         })
         .catch(function(err){
           if(err.status == 500){
@@ -95,6 +100,7 @@ angular
         })
     }
 
+//edit device function
     $scope.editDevice = function(){
       ngDialog.close();
       deviceFactory.updateDevice($scope.deviceIdData._id,$scope.deviceIdData)
@@ -102,7 +108,7 @@ angular
           vm.deviceData = '';
           ngDialog.close();
           vm.error = false;
-          deviceFactory.notify();
+          deviceFactory.notify(); //notify od device change
           console.log("after device edit",response.data);
         })
         .catch(function(err){
@@ -116,6 +122,7 @@ angular
         })
     }
 
+//delete device function
     $scope.deleteDevice = function(){
       ngDialog.close();
       console.log( "delete",$scope.deviceIdData._id);
@@ -123,7 +130,7 @@ angular
         .then(function(response){
           ngDialog.close();
           vm.error = false;
-          deviceFactory.notify();
+          deviceFactory.notify(); //notify of device change
           console.log("after device delete",response.data);
         })
         .catch(function(err){
@@ -138,7 +145,7 @@ angular
     }
 
 
-
+//close dialog function
     vm.closeThisDialog = function(){
       ngDialog.close();
       $location.path('/dashboard');

@@ -1,4 +1,5 @@
 (function(){
+
 'use strict';
 
   //Factory for all authentication API calls part of sub module "core"
@@ -10,6 +11,7 @@ angular
 
     function authFactory (BASE_URL, $http,$window,$q){
       var authState = false;
+
       // Returns Login resource
       var login = function(creds) {
         return $http.post(BASE_URL +'users/login',creds);
@@ -20,16 +22,16 @@ angular
         console.log(creds);
         return $http.post(BASE_URL +'users/register',creds);
       }
-
+      // Returns update password resource
       var update = function(creds) {
         return $http.put(BASE_URL +'users/update',creds,{headers: {"x-access-token": $window.localStorage.token}});
       }
-
+      // Returns me (my info) resource
       var getMe = function() {
         return $http.get(BASE_URL +'users/me',{headers: {"x-access-token": $window.localStorage.token}});
       }
 
-
+      //check if authenticated
       var isAuthenticated = function(){
         var deferred = $q.defer();
 
@@ -46,11 +48,12 @@ angular
         return deferred.promise;
       }
 
-
+      //cache authState
       var cacheAuthState = function(state) {
         authState = state;
       };
 
+      //get cached authState
       var getAuthState = function(state) {
         return authState;
       };
@@ -76,11 +79,13 @@ angular
         $window.localStorage.removeItem('currentUser');
       }
 
+      //set currentUser in localStorage
       var setCurrentUser = function(user) {
         console.log("setuser",user)
         $window.localStorage.currentUser = JSON.stringify(user);
       }
 
+      //get currentUser from localStorage
       var getCurrentUser = function(){
         if ($window.localStorage.currentUser){
           return JSON.parse($window.localStorage.currentUser);
@@ -88,7 +93,7 @@ angular
           return null;
         }
       }
-
+      // set activation status of current user
       var setCurrentUserActivated = function(activated){
           var currentUser = JSON.parse($window.localStorage.currentUser);
           currentUser.activated = activated;
@@ -98,7 +103,7 @@ angular
 
 
 
-
+//return methods to be used by other controllers and services
       return {
         login: login,
         register: register,

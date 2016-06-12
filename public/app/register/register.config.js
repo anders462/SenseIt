@@ -2,7 +2,7 @@
 
 'use strict';
 
-//home page sub module
+//register sub module route config
 angular
   .module('SenseIt.register')
    .config(configFunction);

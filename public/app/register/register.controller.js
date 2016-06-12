@@ -2,7 +2,7 @@
 
 'use strict';
 
-//register page sub module
+//register page sub module controller
 angular
   .module('SenseIt.register')
    .controller('RegisterController',RegisterController);
@@ -12,8 +12,8 @@ angular
   function RegisterController($location,ngDialog,$scope,authFactory){
 
   var vm = this; //set vm (view model) to reference main object
-  vm.registration = '';
-  vm.error = false;
+  vm.registration = ''; //reset registration data
+  vm.error = false; //reset error
 
 
 //opens up a Register Modal Dialog
@@ -30,6 +30,7 @@ angular
       })
   });
 
+//register user
   vm.doRegister = function(){
     console.log("creds",vm.registration)
     authFactory.register(vm.registration)
@@ -38,7 +39,7 @@ angular
         ngDialog.close();
         vm.error = false;
         console.log(response);
-        $location.path('/login');
+        $location.path('/login'); //route to login
 
       })
       .catch(function(err){
@@ -50,22 +51,25 @@ angular
 
   }
 
+//close modal
   vm.closeThisDialog = function(){
     ngDialog.close();
     $location.path('/');
   }
 
+//open login modal
   vm.openLogin = function(){
     ngDialog.close();
     $location.path('/login');
   }
 
+//validation settings
   vm.shouldValidate = function(name){
     var rules = {
-      username: false,
-      username_len: 0,
-      password: false,
-      password_len: 0,
+      username: true,
+      username_len: 3,
+      password: true,
+      password_len: 8,
       email: false,
       firstname: false,
       lastname: false

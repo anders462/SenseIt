@@ -2,7 +2,7 @@
 
 'use strict';
 
-//home page sub module
+//logout sub module
 angular
   .module('SenseIt.logout')
    .config(configFunction);

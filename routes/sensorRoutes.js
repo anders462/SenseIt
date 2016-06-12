@@ -8,14 +8,14 @@ var Verify = require('./verify');
 
 
 
-
+//create sensor router
 var sensorRouter = express.Router();
 
-//exports dishRouter
+//exports sensorRouter
 module.exports = sensorRouter;
 
 
-
+//sensor routes
 sensorRouter.route('/')
 
 //GET all sensors belonging to user with user_id
@@ -188,6 +188,5 @@ sensorRouter.route('/:deviceId/:sensorId')
       res.json(resp);
     }
 
-              ///UPDATE DEVICE
   });
 });

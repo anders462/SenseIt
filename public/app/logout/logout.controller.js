@@ -2,7 +2,7 @@
 
 'use strict';
 
-//register page sub module
+//logout sub module controller
 angular
   .module('SenseIt.logout')
    .controller('LogoutController',LogoutController);
@@ -13,7 +13,7 @@ angular
 
   var vm = this; //set vm (view model) to reference main object
 
-  //opens up a Login Modal Dialog
+  //opens up a Logout Modal Dialog
     $scope.$on('$stateChangeSuccess',function(){
       console.log("open logout")
         ngDialog.open({
@@ -28,12 +28,13 @@ angular
     });
 
 
-
+//close modal
     vm.closeThisDialog = function(){
       ngDialog.close();
       $location.path('/dashboard');
     }
 
+//logs user out
     vm.doLogout = function(){
       authFactory.deleteToken();
       authFactory.cacheAuthState(false);

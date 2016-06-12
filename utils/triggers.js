@@ -1,6 +1,7 @@
 
 
 //Load Triggers from Database to memory
+//THIS FEATURES IS NOT CURRENTLY USED
 
 
 var sens1 = '48r4fhf8rydehwud89r'

@@ -1,7 +1,7 @@
 (function(){
 'use strict';
 
-  //Factory for all authentication API calls part of sub module "core"
+  //Factory for all device API calls part of sub module "core"
 angular
   .module('SenseIt.core')
     .factory('deviceFactory', deviceFactory);
@@ -60,16 +60,17 @@ angular
               $rootScope.$emit('devicesUpdated');
           }
 
+      //cache devices
       var cacheDevices = function(data){
             deviceData = data;
           }
-
+      //get chached devices
       var getCachedDevices = function(){
             return deviceData;
           }
 
 
-
+      //return methods to be used elsewhere
       return {
         addDevice: addDevice,
         getDevices: getDevices,

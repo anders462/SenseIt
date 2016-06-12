@@ -2,6 +2,7 @@
 
 'use strict';
 
+//MAIN APP MODULE
 angular
 .module('SenseIt',[
   //Angular Modules
@@ -27,17 +28,18 @@ angular
 stateAuthenticate.$inject = ['$rootScope', '$state', 'authFactory'];
 
 function stateAuthenticate($rootScope, $state, authFactory){
-
+//AUTHENTICATION BEFORE STATE CHANGE
   authFactory.isAuthenticated()
   .then(function(resp){
     console.log("isAuthenticated resp", true);
-    authFactory.cacheAuthState(true);
+    authFactory.cacheAuthState(true); //SET CACHED AUTH STATE
   })
   .catch(function(err){
     authFactory.cacheAuthState(false);
     console.log("isAuthenticated resp", false);
   });
-
+//CHECK IF STATE CHANGE CAN OCCUR, ONLY IF ROUTE NOT PROTECTED OR
+//ROUTE PROTECTED AND USER AUTHENTICATED
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
     console.log("tostate", toState.data.authenticate);
     console.log("authState",authFactory.getAuthState());
@@ -55,7 +57,7 @@ function stateAuthenticate($rootScope, $state, authFactory){
  configFunction.$inject = ['$urlRouterProvider'];
 
  function configFunction($urlRouterProvider){
-
+//IF NO OTHER ROUTES MATCHES GO TO /
      $urlRouterProvider.otherwise('/');
 
  }

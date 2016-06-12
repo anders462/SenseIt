@@ -2,7 +2,7 @@
 
 'use strict';
 
-//register page sub module
+//Activate sub module Controller
 angular
   .module('SenseIt.activate')
    .controller('ActivateController',ActivateController);
@@ -20,10 +20,10 @@ angular
   function ActivateController($location,ngDialog, $scope, activateFactory,authFactory,mqttFactory){
 
   var vm = this; //set vm (view model) to reference main object
-  vm.error = false;
-  vm.activated = authFactory.getCurrentUser().activated;
-  vm.mqttUsername = authFactory.getCurrentUser().username;
-  vm.mqttPassword = '*******'
+  vm.error = false; //reset error messages for dialogs
+  vm.activated = authFactory.getCurrentUser().activated; //get activation status from cache
+  vm.mqttUsername = authFactory.getCurrentUser().username; //get username for cache
+  vm.mqttPassword = '*******' //set masked PASSWORD
 
     // call createMqttClient with 10 sec delay to take into
     //acount creation delay on cloudmqtt side as well, make sure
@@ -41,7 +41,7 @@ angular
     }
 
 
-
+//open Activate modal
     vm.openActivationModal = function(){
       $scope.activateTitle ="MQTT Account Settings";
       console.log("open Activate")
@@ -58,19 +58,21 @@ angular
         });
     };
 
-///ADD MIN PASSWORD LENGTH of 8
+
+//activate user account on CloudMqtt
+//ADD MIN PASSWORD LENGTH of 8
     vm.activate = function(){
       console.log("creds",vm.activationData)
       activateFactory.activate(vm.activationData)
         .then(function(response){
-          vm.activationData = '';
+          vm.activationData = ''; //reset activation data
           vm.error = false;
-          vm.activated = response.data.resp.activated;
+          vm.activated = response.data.resp.activated; //set activation status
           console.log('activated',vm.activated)
-          authFactory.setCurrentUserActivated(vm.activated);
-          activateFactory.notify();
+          authFactory.setCurrentUserActivated(vm.activated); //cache status in factory
+          activateFactory.notify(); //notify of activation change so other controller can update.
           $scope.activateSubTitle ="Account is activated";
-          vm.connectMqtt();
+          vm.connectMqtt(); //try to connect to Mqtt service
           console.log(response.data);
         })
         .catch(function(err){
@@ -79,7 +81,6 @@ angular
             vm.errorMessage = "Something went wrong!";
           } else {
             console.log(err)
-
             //vm.errorMessage = err.data.message;
           }
           vm.activationData = '';
@@ -87,14 +88,15 @@ angular
         })
     }
 
+//deActivate == delete CloudMqtt account
     vm.deActivate = function(){
       activateFactory.deActivate()
         .then(function(response){
           vm.error = false;
           vm.activated = response.data.resp.activated;
           console.log('activated',vm.activated)
-          authFactory.setCurrentUserActivated(vm.activated);
-          activateFactory.notify();
+          authFactory.setCurrentUserActivated(vm.activated); //cache status change
+          activateFactory.notify(); //notify status change
         })
         .catch(function(err){
           if(err.status == 500){
@@ -107,16 +109,19 @@ angular
         })
     }
 
+//close dialogs
     vm.closeThisDialog = function(){
       ngDialog.close();
       $location.path('/dashboard');
     }
 
+//go to dashboard
     vm.goToDashboard = function(){
       ngDialog.close();
       $location.path('/dashboard');
     }
 
+//subscribe to connectionLost event listner
     mqttFactory.subscribe($scope, function connectionLost() {
       console.log("connectionLost");
       vm.connectMqtt();

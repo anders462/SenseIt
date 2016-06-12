@@ -2,7 +2,7 @@
 
 'use strict';
 
-//register page sub module
+//dashboard sub module
 angular
   .module('SenseIt.dashboard',[]);
 

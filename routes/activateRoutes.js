@@ -13,7 +13,7 @@ var Verify = require('./verify'); //Token verification
 var BASE_URL = cloudMqtt.base_url;
 var username = cloudMqtt.username;
 var password = cloudMqtt.password;
-//Basic Auth
+//Basic Auth setup
 var auth = "Basic " + new Buffer(username + ":" + password).toString("base64");
 var headers = {
     'Content-Type': 'application/json',
@@ -26,6 +26,8 @@ var provisioningRouter = express.Router();
 //exports provisioningRouter
 module.exports = provisioningRouter;
 
+
+//activation routes
 provisioningRouter.route('/')
 
 //GET all registered users  from CloudMqtt, 'ONLY FOR ADMINS!!!!!!!!'
@@ -35,6 +37,7 @@ provisioningRouter.route('/')
       method: 'GET',
       headers: headers
   };
+  //server to server request using "request" lib
   request(options, function(error,response,body){
     if (!error && response.statusCode == 200) {
       res.json({"message":JSON.parse(body)});

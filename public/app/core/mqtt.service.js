@@ -2,7 +2,7 @@
 
 'use strict'
 
-//Factory for all sensors API calls part of sub module "core"
+//Factory for mqtt connection, part of sub module "core"
 angular
 .module('SenseIt.core')
   .factory('mqttFactory', mqttFactory);
@@ -18,8 +18,10 @@ function mqttFactory ($http, $window, $rootScope, authFactory){
 
 var mqttData = {};
 
+
+//create mqtt client using paho-mqtt client lib
  var createMqttClient = function() {
-  //NEED TO ENCRYPT MQTT password
+  //Note: NEED TO ENCRYPT MQTT password
   //Gets credentials for mqtt account
    authFactory.getMe()
     .then(function(resp){
@@ -31,10 +33,9 @@ var mqttData = {};
     })
 
 var connect = function(creds){
-35588
   // Create a client instance
   //DEV USE PORT 32337
-  //ADD TO CONSTANTS
+  //Note: ADD port TO CONSTANTS
  var client = new Paho.MQTT.Client("m12.cloudmqtt.com", 35588,"web_" + parseInt(Math.random() * 100, 10));
   // set callback handlers
   client.onConnectionLost = onConnectionLost;
@@ -62,26 +63,15 @@ var connect = function(creds){
     console.log("onConnect");
     //subscribe to my allowed topics
     client.subscribe(topic_all_mine);
-
-  // $('#submit').click(function(key) {
-  //          var text = $('#message').val();
-  //          $('#message').val("");
-  //          console.log("message",text);
-  //          var message = new Paho.MQTT.Message(text);
-  //          message.destinationName = topic_1;
-  //          client.send(message);
-  //
-  // });
-
   }
 
-  //NEED TO TRY TO RECONNECT
+  //NEED TO TRY TO RECONNECT if fail
   function doFail(e){
     console.log("onFail err", e);
     notify();
   }
 
-  //NEED TO TRY TO RECONNECT
+  //NEED TO TRY TO RECONNECT if lose connection
   // notify() called when the client loses its connection
   function onConnectionLost(responseObject) {
       if (responseObject.errorCode !== 0) {
@@ -94,11 +84,11 @@ var connect = function(creds){
   function onMessageArrived(message) {
       mqttData = message;
       notifyMqtt(message);
-    //  console.log("onMessageArrived:"+message.payloadString,"topic",message.destinationName);
     }
  }
 }
 
+//get cached mqtt data
 function getCachedMqttData(){
   return mqttData;
 }

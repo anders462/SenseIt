@@ -8,6 +8,10 @@ var Verify = require('./verify');
 //TODO: CHECK SO THAT TOKEN OBJECT IS NOT CONTAINING PASSWORDS ETC
 /* GET users listing. */
 
+
+//user routes
+
+//Get all users, admin only
 router.get('/',Verify.verifyOrdinaryUser, Verify.verifyAdmin,function(req, res) { ///ADD VERIFY ADMIN TO DO GET OF ALL USERS!!
     User.find({}, function(err,user){
       if(err){
@@ -19,12 +23,14 @@ router.get('/',Verify.verifyOrdinaryUser, Verify.verifyAdmin,function(req, res) 
 
   });
 
-  router.get('/me',Verify.verifyOrdinaryUser, function(req, res) { ///ADD VERIFY ADMIN TO DO GET OF ALL USERS!!
+//Get me route is used to check if user is activated and
+//to provide MQTT password for client to connnect to thirdparty
+//service via web-socket
+  router.get('/me',Verify.verifyOrdinaryUser, function(req, res) {
       User.findOne({_id:req.decoded._doc._id}, function(err,user){
         if(err){
           return res.status(500).json({err:err});
         }
-        console.log("test")
         var userData = {
           "username":user.username,
           "token":user.token,
@@ -36,7 +42,7 @@ router.get('/',Verify.verifyOrdinaryUser, Verify.verifyAdmin,function(req, res) 
 
     });
 
-
+//register route
   router.post('/register', function(req, res) {
     console.log(req.body);
       User.register(new User({ username : req.body.username }),
@@ -62,6 +68,7 @@ router.get('/',Verify.verifyOrdinaryUser, Verify.verifyAdmin,function(req, res) 
       });
   });
 
+//login routes
 router.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err) {
@@ -93,6 +100,8 @@ router.post('/login', function(req, res, next) {
   })(req,res,next);
 });
 
+//logout routes
+//true logout have to be done by destroying JWT on client side though
 router.get('/logout', function(req, res) {
     req.logout();
     res.status(200).json({
@@ -100,7 +109,7 @@ router.get('/logout', function(req, res) {
   });
 });
 
-
+//Update password route
 router.put('/update', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err) {
@@ -130,6 +139,8 @@ router.put('/update', function(req, res, next) {
   })(req,res,next);
 });
 
+
+//facebok routes, not currently used in this version
 router.get('/facebook', passport.authenticate('facebook'),
   function(req, res){});
 

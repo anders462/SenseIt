@@ -5,6 +5,8 @@ var User = require('./models/user');
 var config = require('./config');
 
 
+//PASSPORT Strategy DEFINITIONS
+//FACEBOOK STRATEGY NOT USED IN CURRENT VERSION
 
 exports.local = passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());

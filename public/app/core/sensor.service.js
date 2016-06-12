@@ -68,16 +68,18 @@ angular
               $rootScope.$emit('sensorsUpdated');
           }
 
+      //cache sensor data
       var cacheSensors = function(data){
         sensorData = data;
       }
 
+      //get cached sensor data
       var getCachedSensors = function(){
         return sensorData;
       }
 
 
-
+      //make sensorFactory methods available
       return {
         getAllSensors: getAllSensors,
         getDeviceSensors: getDeviceSensors,

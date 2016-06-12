@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var dotenv = require('dotenv').config({silent: true}); // make .env available to process.env
-var cors = require('cors'); // Cors configuration. NEED TO SET UP CORS!!!!
+var cors = require('cors'); // Cors configuration.
 var authenticate = require('./authenticate');
 var passport = require('passport');
 var users = require('./routes/users');
@@ -29,13 +29,13 @@ db.once('open', function () {
     console.log("Connected correctly to MongoDB server");
 });
 
+//create app
 var app = express();
 app.set('port', (process.env.PORT || 3000));   // set port for server
 
 
 //add middlewares
-// app.options('*', cors()); // preflight cors include before other routes
-app.use(cors());
+app.use(cors()); //Cross Domain middleware
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev')); //add morgan middleware logger
 //add middleware parser for urlencoded body data POST and URL JSon params

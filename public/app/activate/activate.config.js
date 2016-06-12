@@ -2,7 +2,7 @@
 
 'use strict';
 
-//home page sub module
+//ACTIVATE sub module routing
 angular
   .module('SenseIt.activate')
    .config(configFunction);
@@ -27,7 +27,7 @@ angular
             }
           },
           data : {
-            authenticate: false  //TRUE in non testing mode
+            authenticate: true  //TRUE in non testing mode
           }
 
         });

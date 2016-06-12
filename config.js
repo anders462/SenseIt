@@ -1,3 +1,5 @@
+//CONFIG OBJECT FOR SECRETS, PRIVATE KEYS ETC
+
 module.exports = {
     'secretKey': process.env.SECRET_KEY,
     'mongoUrl' : process.env.MONGODB_URI,

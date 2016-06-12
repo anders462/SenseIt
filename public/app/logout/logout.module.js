@@ -2,7 +2,7 @@
 
 'use strict';
 
-//register page sub module
+//logout sub module
 angular
   .module('SenseIt.logout',[]);
 

@@ -4,15 +4,16 @@ var express = require('express');
 var mongoose = require('mongoose');
 var Devices = require('../models/devices');
 var Sensors = require('../models/sensors');
-var Verify = require('./verify');
+var Verify = require('./verify'); //verify JWT
 
 
-
+//create  device router
 var deviceRouter = express.Router();
 
 //exports deviceRouter
 module.exports = deviceRouter;
 
+//Device routes
 deviceRouter.route('/')
 
 //GET all devices from device owner with user id

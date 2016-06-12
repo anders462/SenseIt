@@ -1,7 +1,7 @@
 (function(){
 'use strict';
 
-  //Factory for all sensors API calls part of sub module "core"
+  //Factory for all ACTIVATE API calls part of sub module "core"
 angular
   .module('SenseIt.core')
     .factory('activateFactory', activateFactory);
@@ -33,12 +33,13 @@ angular
               var handler = $rootScope.$on('activationUpdated', callback);
               scope.$on('$destroy', handler);
           }
+
       //notify change in devices
       var notify = function(event) {
               $rootScope.$emit('activationUpdated');
           }
 
-
+//METHODS RETURNED TO BE USED BY CONTROLLERS ETC
       return {
         activate: activate,
         deActivate: deActivate,

@@ -1,3 +1,5 @@
+
+//configuration object for mqtt
 module.exports =
 {
   username: process.env.USERNAME,

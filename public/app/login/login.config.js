@@ -2,7 +2,7 @@
 
 'use strict';
 
-//home page sub module
+//login sub module
 angular
   .module('SenseIt.login')
    .config(configFunction);
