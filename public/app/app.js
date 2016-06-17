@@ -22,8 +22,26 @@ angular
   'SenseIt.logout'
 
 ])
+.run(checkAuthentication)
 .run(stateAuthenticate)
 .config(configFunction);
+
+checkAuthentication.$inject = ['authFactory'];
+
+function checkAuthentication(authFactory){
+  //AUTHENTICATION BEFORE STATE CHANGE
+    authFactory.isAuthenticated()
+    .then(function(resp){
+      console.log(resp);
+      authFactory.cacheAuthState(true); //SET CACHED AUTH STATE To TRUE
+    })
+    .catch(function(err){
+      console.log("error",err);
+      authFactory.cacheAuthState(false);
+
+    });
+}
+
 
 stateAuthenticate.$inject = ['$rootScope', '$state', 'authFactory'];
 
@@ -34,26 +52,12 @@ function stateAuthenticate($rootScope, $state, authFactory){
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
     console.log("tostate", toState.data.authenticate);
     //AUTHENTICATION BEFORE STATE CHANGE
-      authFactory.isAuthenticated()
-      .then(function(resp){
-        authFactory.cacheAuthState(true); //SET CACHED AUTH STATE
         if (toState.data.authenticate && !authFactory.getAuthState()){
           // User isn’t authenticated
           console.log('transition to', toState);
           $state.transitionTo("app.login");
           event.preventDefault();
         }
-      })
-      .catch(function(err){
-        console.log("error",err);
-        authFactory.cacheAuthState(false);
-        if (toState.data.authenticate && !authFactory.getAuthState()){
-          // User isn’t authenticated
-          console.log('transition to', toState);
-          $state.transitionTo("app.login");
-          event.preventDefault();
-        }
-      });
 
   });
 }
