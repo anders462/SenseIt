@@ -45,7 +45,14 @@ function stateAuthenticate($rootScope, $state, authFactory){
         }
       })
       .catch(function(err){
+        console.log("error",err);
         authFactory.cacheAuthState(false);
+        if (toState.data.authenticate && !authFactory.getAuthState()){
+          // User isn’t authenticated
+          console.log('transition to', toState);
+          $state.transitionTo("app.login");
+          event.preventDefault();
+        }
       });
 
   });
