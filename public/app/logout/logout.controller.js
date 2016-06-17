@@ -39,6 +39,7 @@ angular
       authFactory.deleteToken();
       authFactory.cacheAuthState(false);
       ngDialog.close();
+      $location.path('/');
     }
 
 

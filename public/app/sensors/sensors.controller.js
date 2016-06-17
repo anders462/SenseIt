@@ -21,6 +21,7 @@ angular
   $scope.error = false; //reset error
   $scope.sensorCreated = false; //reset sensor created
   vm.activated = authFactory.getCurrentUser().activated; //get activation status
+  vm.currentUser = authFactory.getCurrentUser().username;
   //reset all objects
   $scope.sensorIdData = {};
   $scope.deviceData = [];
@@ -68,7 +69,7 @@ angular
     vm.openSensorEditModal = function(sensorId){
       getCachedSensorId(sensorId);
       getCachedDevices();
-      console.log($scope.sensorIdData)
+      //console.log($scope.sensorIdData)
           ngDialog.open({
              template: 'app/sensors/sensors.edit.modal.html',
              className: 'ngdialog-theme-default',
@@ -106,7 +107,7 @@ vm.openSensorDeleteModal = function(sensorId){
           var user = authFactory.getCurrentUser();
           sensorFactory.notify(); //notify sensor updated
           deviceFactory.notify(); //notify device updated
-          console.log("getuser",user)
+          //console.log("getuser",user)
           vm.sensorName = response.data.data.sensorName;
           //display allowed topic for user after sensor is created
           $scope.sensorTopic = "mysensor/" + user.username +'/' + response.data.data._id

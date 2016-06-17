@@ -35,6 +35,7 @@ var mqttData = {};
 var connect = function(creds){
   // Create a client instance
   //DEV USE PORT 32337
+  //PROD USE 35588
   //Note: ADD port TO CONSTANTS
  var client = new Paho.MQTT.Client("m12.cloudmqtt.com", 35588,"web_" + parseInt(Math.random() * 100, 10));
   // set callback handlers

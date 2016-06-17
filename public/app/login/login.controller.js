@@ -34,9 +34,11 @@ angular
         })
     });
 
+    
+
 //login user
     vm.doLogin = function(){
-      console.log("creds",vm.loginData)
+      //console.log("creds",vm.loginData)
       authFactory.login(vm.loginData)
         .then(function(response){
           vm.loginData = '';
@@ -50,10 +52,10 @@ angular
           $location.path('/dashboard'); //go to dashbaord
         })
         .catch(function(err){
-          console.log(err.data.err.message);
+          console.log(err);
           vm.loginData = '';
           vm.error = true;
-          vm.errorMessage = err.data.err.message;
+          vm.errorMessage = "Ops something went wrong!";
         })
 
 

@@ -7,7 +7,25 @@ body {
  background-color: white;
 }
 
+.sensor-device-list {
+  border: 1px solid gray;
+  border-radius: 2%;
+  margin: 10px;
+  padding:10px;
 
+  .text-box {
+
+  }
+
+  p.wrap {
+    word-wrap: break-word;
+  }
+  img {
+    height:64px;
+    width:64px;
+  }
+
+}
 /* Remove the navbar's default margin-bottom and rounded borders */
 .navbar {
   margin-bottom: 0;
@@ -55,7 +73,7 @@ input {
   color: rgb(226, 79, 7);
 }
 .sensorData {
-  font-size: 2em;
+  font-size: 1.5em;
   color: gray;
 }
 
@@ -99,8 +117,9 @@ input {
   }
 
 .box-livedata {
+  border: 1px solid gray;
+  border-radius: 2%;
   padding:20px;
-  border: gray 2px solid;
   margin-left: 20px;
   margin-right:20px;
   margin-top: 20px;

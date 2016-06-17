@@ -44,8 +44,7 @@ angular
 //open Activate modal
     vm.openActivationModal = function(){
       $scope.activateTitle ="MQTT Account Settings";
-      console.log("open Activate")
-
+      //console.log("open Activate")
         ngDialog.open({
            template: 'app/activate/activate.modal.html',
            className: 'ngdialog-theme-default',
@@ -62,13 +61,13 @@ angular
 //activate user account on CloudMqtt
 //ADD MIN PASSWORD LENGTH of 8
     vm.activate = function(){
-      console.log("creds",vm.activationData)
+      //console.log("creds",vm.activationData)
       activateFactory.activate(vm.activationData)
         .then(function(response){
           vm.activationData = ''; //reset activation data
           vm.error = false;
           vm.activated = response.data.resp.activated; //set activation status
-          console.log('activated',vm.activated)
+          //console.log('activated',vm.activated)
           authFactory.setCurrentUserActivated(vm.activated); //cache status in factory
           activateFactory.notify(); //notify of activation change so other controller can update.
           $scope.activateSubTitle ="Account is activated";
@@ -94,7 +93,7 @@ angular
         .then(function(response){
           vm.error = false;
           vm.activated = response.data.resp.activated;
-          console.log('activated',vm.activated)
+          //console.log('activated',vm.activated)
           authFactory.setCurrentUserActivated(vm.activated); //cache status change
           activateFactory.notify(); //notify status change
         })

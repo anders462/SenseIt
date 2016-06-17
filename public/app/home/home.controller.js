@@ -7,12 +7,14 @@ angular
   .module('SenseIt.home')
    .controller('HomeController',HomeController);
 
-  HomeController.$inject = ['$location','ngDialog',"$scope"];
+  HomeController.$inject = ['$location','ngDialog',"$scope",'authFactory'];
 
-  function HomeController($location,ngDialog,$scope){
+  function HomeController($location,ngDialog,$scope,authFactory){
 
   var vm = this; //set vm (view model) to reference main object
-  var loggedIn = false; //note:  Check if activated as well??
+  var loggedIn = authFactory.getAuthState();
+  console.log(loggedIn)
+
 
 //get started function
 //future version might have a logic to guide the user
@@ -20,13 +22,24 @@ angular
   vm.getStarted = function(){
     if (!loggedIn ){
       console.log("not loggedIn");
-      $location.path('/register')
+      $location.path('/register');
 
     } else {
-      console.log("redirect to dashboard")
+      console.log("getstart");
+      $location.path('/dashboard');
     }
 }
 
+vm.goToDashboard = function(){
+  if (!loggedIn ){
+    console.log("not loggedIn");
+    $location.path('/login')
+  } else {
+    console.log("goToDashboard");
+    $location.path('/dashboard');
+  }
+
+}
 //open login module
 vm.openModal = function(){
   console.log("open modal")

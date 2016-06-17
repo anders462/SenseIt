@@ -10,3 +10,4 @@ angular.module('SenseIt.core')
 })();
 
 //DEV set to http://192.168.1.70:8001/
+//Prod https://sense-it.herokuapp.com/

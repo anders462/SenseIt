@@ -22,6 +22,8 @@ angular
   vm.error = false; //reset errors
   vm.activated = authFactory.getCurrentUser().activated; //get cached status
   $scope.deviceIdData = {}; //reset deviceIdData
+  vm.currentUser = authFactory.getCurrentUser().username;
+
 
 
 //retrieve chached device for specific id
@@ -80,7 +82,7 @@ angular
 
 //device delete function
     vm.addDevice = function(){
-      console.log("device",vm.deviceData)
+      //console.log("device",vm.deviceData)
       deviceFactory.addDevice(vm.deviceData)
         .then(function(response){
           vm.deviceData = '';

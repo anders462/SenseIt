@@ -39,72 +39,49 @@ angular
   vm.activated = authFactory.getCurrentUser().activated;
   vm.currentUser = authFactory.getCurrentUser().username;
 
-//update chart
-//this is a somewhat complicated function that need to
-//be refactored in later versions
-//sensorId is the id of the sensor beeing chart and sampleType
-//is the type of value to chart, for ex temperature
-vm.updateChart = function(sensorId,sampleType) {
-  console.log("updateChart",sensorId,sampleType)
-  var chartTitle;
-  var yAxisData = sampleType + " sample value";
-  //find sensor with sensorId
-  var sensor = vm.sensorData.filter(function(sensor){
-    if (sensor._id == sensorId){
-      chartTitle = "Historical data for sensor " + sensor.sensorName;
-      return sensor;
-    }
-  })
- var series = [];
- var data = [];
- var point;
- //format samples to the correct format for HighCharts
- sensor[0].data.forEach(function(obj,index){
-  point = [obj.time,obj.data[sampleType]];
-  data.push(point);
- })
- var sample = {name:sampleType,data:data};
- series.push(sample);
- //chart the values using HighCharts
- chartFactory.chartValues(series,chartTitle, yAxisData);
-};
-
+//Update chart
+vm.updateChart = function(defaultChart, defaultSampleType){
+  chartFactory.updateChart(defaultChart, defaultSampleType)
+}
 
 //count the total historical messages from all sensors
+//Note: add this to service
   var countMessages = function(sensorData){
     vm.messages = sensorData.reduce(function(aggr,curr,index,arr){
-      console.log(curr.sensorName, curr.data.length, defaultChart );
+      //console.log(curr.sensorName, curr.data.length, defaultChart );
       if (defaultChart == null && curr.data.length > 0 ){
         defaultChart = curr._id;
         defaultSampleType = Object.keys(curr.data[0].data)[0];
         console.log("defaultChart", defaultChart, defaultSampleType);
+        //vm.updateChart(defaultChart, defaultSampleType)
         vm.updateChart(defaultChart, defaultSampleType)
       }
       aggr += curr.data.length;
-      console.log(aggr)
+      //console.log(aggr)
       return aggr;
     },0);
     //if no historical data show default chart
     if (vm.messages == 0){
-      console.log(sampleSeries)
+      //console.log(sampleSeries)
       chartFactory.chartValues(sampleSeries,"Sample", "Sample");
     }
   }
 
 //update mqtt data as a new message was received
+//Note:add this to a service
   var updateMqttData  = function(data){
     var payload = getPayload(data.payloadString);
     var id = getId(data.destinationName);
     var mappedSensorData = getMatch(id,payload);
-    console.log("mappedSensorData", mappedSensorData)
+    //console.log("mappedSensorData", mappedSensorData)
     //update liveData with the new message
     vm.liveData = mappedSensorData.filter(function(sensor){
-      console.log(sensor);
+      //console.log(sensor);
       if (sensor.hasOwnProperty('payload')){
         return sensor;
       }
     });
-    console.log("sensors", vm.liveData);
+    //console.log("sensors", vm.liveData);
     $scope.$apply();
   }
 
@@ -140,10 +117,10 @@ vm.updateChart = function(sensorId,sampleType) {
   var updateDeviceModel = function(){
     deviceFactory.getDevices()
       .then(function(response){
-        //update device data
-        vm.deviceData = response.data;
         //cache device in factory
-        deviceFactory.cacheDevices(vm.deviceData);
+        deviceFactory.cacheDevices(response.data);
+        //update device data in view
+        vm.deviceData = deviceFactory.getCachedDevices();
       })
       .catch(function(err){
         console.log(err);
@@ -154,12 +131,13 @@ vm.updateChart = function(sensorId,sampleType) {
   var updateSensorModel = function(){
     sensorFactory.getAllSensors()
       .then(function(response){
-        //update sensor data
-        vm.sensorData = response.data;
+        //cache sensor data
+        sensorFactory.cacheSensors(response.data);
+        //update sensor data in view
+        vm.sensorData = sensorFactory.getCachedSensors();
         //update sensor data counts
         countMessages(vm.sensorData);
-        //cache sensor data
-        sensorFactory.cacheSensors(vm.sensorData);
+
       })
       .catch(function(err){
         console.log(err);
@@ -169,9 +147,16 @@ vm.updateChart = function(sensorId,sampleType) {
   //update device and sensor objects when page reload
   $scope.$on('$stateChangeSuccess',function(){
     ///Note: ADD LOADING.... Message
-    //Note: CAN I DO THIS FROM CACHE INSTEAD??
-      updateDeviceModel();
+    vm.sensorData = sensorFactory.getCachedSensors();
+    vm.deviceData = deviceFactory.getCachedDevices();
+    if (vm.sensorData.length == 0){
       updateSensorModel();
+    } else {
+      countMessages(vm.sensorData);
+    }
+    if (vm.deviceData.length == 0){
+      updateDeviceModel();
+    }
 
     }());
 

@@ -3,5 +3,6 @@ npm-debug.log
 .DS_Store
 .env
 .env_dev
+.env_prod
 gulpfile.js
 gulpfile_old.js

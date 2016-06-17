@@ -70,12 +70,31 @@ angular
 
       //cache sensor data
       var cacheSensors = function(data){
+        console.log("cache sensors", data)
+        //store in prop measures what sensor data is received
+        //most recently
+        data.forEach(function(sensor){
+          if (sensor.data.length >0){
+            sensor.measures = Object.keys(sensor.data[sensor.data.length-1].data);
+            console.log("measures",sensor.measures);
+          }
+        })
         sensorData = data;
       }
 
       //get cached sensor data
       var getCachedSensors = function(){
         return sensorData;
+      }
+
+      //get cached sensor with ID
+      var getCachedSensorId = function(id){
+
+      return sensorData.filter(function(sensor){
+          if (sensor._id == id){
+            return sensor;
+          }
+        })
       }
 
 
@@ -91,7 +110,8 @@ angular
         subscribe: subscribe,
         cacheSensors: cacheSensors,
         getCachedSensors: getCachedSensors,
-        notify: notify
+        notify: notify,
+        getCachedSensorId: getCachedSensorId
       };
 
 

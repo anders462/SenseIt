@@ -28,28 +28,26 @@ angular
 stateAuthenticate.$inject = ['$rootScope', '$state', 'authFactory'];
 
 function stateAuthenticate($rootScope, $state, authFactory){
-//AUTHENTICATION BEFORE STATE CHANGE
-  authFactory.isAuthenticated()
-  .then(function(resp){
-    console.log("isAuthenticated resp", true);
-    authFactory.cacheAuthState(true); //SET CACHED AUTH STATE
-  })
-  .catch(function(err){
-    authFactory.cacheAuthState(false);
-    console.log("isAuthenticated resp", false);
-  });
+
 //CHECK IF STATE CHANGE CAN OCCUR, ONLY IF ROUTE NOT PROTECTED OR
 //ROUTE PROTECTED AND USER AUTHENTICATED
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
     console.log("tostate", toState.data.authenticate);
-    console.log("authState",authFactory.getAuthState());
-    console.log("if statement",toState.data.authenticate && !authFactory.getAuthState())
-    if (toState.data.authenticate && !authFactory.getAuthState()){
-      // User isn’t authenticated
-      console.log('transition to', toState);
-      $state.transitionTo("app.login");
-      event.preventDefault();
-    }
+    //AUTHENTICATION BEFORE STATE CHANGE
+      authFactory.isAuthenticated()
+      .then(function(resp){
+        authFactory.cacheAuthState(true); //SET CACHED AUTH STATE
+        if (toState.data.authenticate && !authFactory.getAuthState()){
+          // User isn’t authenticated
+          console.log('transition to', toState);
+          $state.transitionTo("app.login");
+          event.preventDefault();
+        }
+      })
+      .catch(function(err){
+        authFactory.cacheAuthState(false);
+      });
+
   });
 }
 

@@ -2,13 +2,19 @@
 
 
 <div class="container-fluid">
+  <div class="col-xs-12">
+     <ul class="breadcrumb">
+         <li><a href="#">Home</a></li>
+         <li class="active">Dashboard</li>
+     </ul>
+  </div>
   <div class="row">
     <div class="col-xs-12">
       <div class=" text-center">
         <h4 class="dashboard">Dashboard&nbsp<i class="fa fa-tachometer" aria-hidden="true"></i>
         </h4>
       </div>
-  </div>
+    </div>
     </div>
       <div class="row">
         <div class="col-sm-3">
@@ -88,64 +94,52 @@
          </div>
        </div>
       </div>
-         <div class="row">
-           <!-- <h3 class="sensorTitle text-center">Live Data</h3> -->
-           <div class="col-sm-2 box-livedata" ng-repeat="sensor in vm.liveData">
+    <div class="row">
+           <div class="col-lg-3 col-md-4 col-sm-6 sensor-device-list" ng-repeat="sensor in vm.liveData">
              <p class="sensorName text-center">{{sensor.sensorName}}<br><small>click on sample type to change chart</small></p>
               <div class="text-center" ng-repeat="data in sensor.payload">
                <p class="sensorData"><small><a ng-click="vm.updateChart(sensor._id,data.type)">{{data.type}}</a></small><br>&nbsp{{data.value}}</p>
              </div>
            </div>
-        <div class="col-sm-3 col-md-4">
-          <div class="box-account dataTable" >
-          <table class="table table-bordered ">
-            <caption>Sensor Info</caption>
-            <thead>
-              <tr>
-                <th>Sensor Name</th>
-                <th>Edit</th>
-                <th>Delete</th>
-             </tr>
 
-          </thead>
-          <tbody>
-            <tr ng-repeat="sensor in vm.sensorData">
-              <td>{{sensor.sensorName}}</td>
-              <td ng-controller="SensorController as senCtrl" >
-                <button class="btn btn-sm btn-primary" ng-click="senCtrl.openSensorEditModal(sensor._id)">Edit</button>
-              </td>
-              <td ng-controller="SensorController as senCtrl">
-                <button class="btn btn-sm btn-warning" ng-click="senCtrl.openSensorDeleteModal(sensor._id)">Delete</button>
-              </td>
-          </tr>
-          </tbody>
-      </table>
-     </div>
-    </div>
-    <div class="col-sm-3 col-sm-offset-1 col-md-4">
-      <div class="box-account dataTable">
-        <table class="table table-bordered">
-          <caption>Device Info</caption>
-          <thead>
-            <tr>
-              <th>Device Name</th>
-              <th>Edit</th>
-              <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody ng-controller="DeviceController as devCtrl">
-          <tr ng-repeat="device in vm.deviceData">
-            <td>{{device.deviceName}}</td>
-            <td>
-              <button class="btn btn-sm btn-primary" ng-click="devCtrl.openDeviceEditModal(device._id)">Edit</button>
-            </td>
-            <td>
-              <button class="btn btn-sm btn-warning" ng-click="devCtrl.openDeviceDeleteModal(device._id)">Delete</button>
-            </td>
-        </tr>
-        </tbody>
-        </table>
+    <div class="col-lg-3 col-md-4 col-sm-6" ng-controller="SensorController as vm" ng-repeat="sensor in vm.sensorData">
+      <div class=" sensor-device-list">
+        <div class="">
+        <h4 class="text-left"><img class="" src="app/images/sensor_icon.jpg">&nbsp{{sensor.sensorName}}</h4>
+        </div>
+        <div class="text-box">
+          <p>id:{{sensor._id}}</p>
+          <p class="wrap">
+            This is a {{sensor.sensorType.type}} sensor. It's currently receiving {{sensor.measures}} data. To send from this sensor use the topic:<br>
+            <em>mysensor/{{vm.currentUser}}/{{sensor._id}}</em>
+          </p>
+          <p>
+            <button ng-click="vm.openSensorEditModal(sensor._id)" class="btn btn-sm btn-success">Edit</button>
+            <button ng-click="vm.openSensorDeleteModal(sensor._id)" class="btn btn-sm btn-danger">Delete</button>
+          </p>
+        </div>
       </div>
     </div>
-   </div>
-  </div>
+
+
+    <div class="col-lg-3 col-md-4 col-sm-6" ng-controller="DeviceController as vm" ng-repeat="device in vm.deviceData">
+      <div class="sensor-device-list ">
+        <div class="">
+           <h4 class="text-left"><img class="" src="app/images/raspberry.jpeg">&nbsp{{device.deviceName}}</h4>
+        </div>
+        <div class="text-box">
+          <p>id:{{device._id}}</p>
+          <p class="wrap">
+            This is a {{device.deviceType}} device. To send from this device use the topic:<br>
+            <em>mysensor/{{vm.currentUser}}/d/{{device._id}}</em>
+          </p>
+          <p>
+            <button ng-click="vm.openDeviceEditModal(device._id)" class="btn btn-sm btn-success">Edit</button>
+            <button ng-click="vm.openDeviceDeleteModal(device._id)" class="btn btn-sm btn-danger">Delete</button>
+          </p>
+        </div>
+      </div>
+    </div>
+
+ </div>
+</div>

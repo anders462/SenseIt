@@ -32,7 +32,7 @@ angular
 
 //register user
   vm.doRegister = function(){
-    console.log("creds",vm.registration)
+    //console.log("creds",vm.registration)
     authFactory.register(vm.registration)
       .then(function(response){
         vm.registration = '';
