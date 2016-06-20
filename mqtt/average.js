@@ -42,10 +42,10 @@ function currentUnixTime(){
 var average = function(avg,data){
 //console.log("average",avg, "new sample",data);
   for (var key in data.data){
-    //floating average FAVGn = (n*FAVGn + SN+1)/(n+1)
+    //moving average FAVGn = (n*FAVGn + SN+1)/(n+1)
     avg.data[key] = (avg.data[key]*avg.counter + data.data[key])/(avg.counter + 1);
   }
-  avg.counter++;//increment counter
+  avg.counter++;//increment sample counter
   //console.log("avg",avg)
   return avg;
 }

@@ -4,7 +4,7 @@
 
 //constatn defenition as part of core module
 angular.module('SenseIt.core')
-  .constant("BASE_URL", "https://sense-it.herokuapp.com/")
+  .constant("BASE_URL", "http://192.168.1.70:8001/")
 
 
 })();

@@ -3,6 +3,7 @@
 var mqtt = require('mqtt'); //mqtt third party lib
 var config = require('./mqtt_config');
 var average= require('./average');
+var trigger = require('./trigger');
 
 //mqtt master topic
 var topic_master_listen = config.master_topic
@@ -40,6 +41,7 @@ client.on('message', function (topic, message) {
     var sample = {data: data.d,time: timeStamp} //create sample obj
     //console.log(sensorId, sample);
     average.calcFloatingAvg(sensorId,sample);
+    trigger.checkTrigger(sensorId,sample);
   }
 
 

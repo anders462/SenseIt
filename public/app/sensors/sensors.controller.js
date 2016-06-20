@@ -13,9 +13,11 @@ angular
     '$scope',
     'sensorFactory',
     'deviceFactory',
-    'authFactory'];
+    'authFactory',
+    'chartFactory'
+  ];
 
-  function SensorController($location,ngDialog,$scope, sensorFactory, deviceFactory,authFactory){
+  function SensorController($location,ngDialog,$scope, sensorFactory, deviceFactory,authFactory,chartFactory){
 
   var vm = this; //set vm (view model) to reference main object
   $scope.error = false; //reset error
@@ -28,6 +30,11 @@ angular
   vm.oldDeviceid="";
   $scope.sensorTopic ="";
   $scope.deviceId = "";
+
+  //Update chart
+  vm.updateChart = function(defaultChart, defaultSampleType){
+    chartFactory.updateChart(defaultChart, defaultSampleType)
+  }
 
 //get cached sensor with specific sensor id
   var getCachedSensorId = function(sensorId){

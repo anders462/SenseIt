@@ -15,6 +15,7 @@ var deviceRouter = require('./routes/deviceRoutes');
 var sensorRouter = require('./routes/sensorRoutes');
 var activateRouter = require('./routes/activateRoutes');
 var dataRouter = require('./routes/dataRoutes');
+var triggerRouter = require('./routes/triggerRoutes');
 var mqttListner = require('./mqtt/mqttListner');
 
 
@@ -49,6 +50,7 @@ app.use('/devices', deviceRouter);
 app.use('/sensors', sensorRouter);
 app.use('/activate', activateRouter);
 app.use('/data', dataRouter);
+app.use('/triggers',triggerRouter);
 
 
 

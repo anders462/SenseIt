@@ -1,0 +1,124 @@
+
+
+
+<div class="container-fluid">
+  <div class="col-xs-12">
+     <ul class="breadcrumb">
+         <li><a href="#">Home</a></li>
+         <li class="active">Dashboard(new)</li>
+     </ul>
+  </div>
+    <div class="col-xs-12">
+      <div class=" text-center">
+        <h4 class="dashboard">Dashboard&nbsp<i class="fa fa-tachometer" aria-hidden="true"></i>
+        </h4>
+      </div>
+  </div>
+    <div class="box-account text-center row" >
+      <div class="col-xs-4">
+        <p class="title-account">Account Name<p>
+        <p class="data-account">{{vm.currentUser}}</p>
+      </div>
+      <div class="col-xs-4">
+        <p class="title-account">Status<p>
+        <p ng-show="vm.activated" class="beacon"></p>
+        <p ng-show="!vm.activated" class="beacon deactive"></p>
+      </div>
+      <div class="col-xs-4" ng-controller="ActivateController as actCtrl">
+        <p class="title-account">Activate<p>
+        <button class="btn btn-sm btn-success" ng-click="actCtrl.openActivationModal()"> Active/Deactivate</button>
+      </div>
+    </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="box devices" ng-controller="DeviceController as devCtrl" >
+            <i class="fa fa-database" aria-hidden="true"></i>
+            <p class="title">DEVICES</p>
+            <p class="circle">{{vm.deviceData.length}}</p>
+            <div class="plus-list">
+              <span class="glyphicon glyphicon-plus" ng-click="devCtrl.openDeviceModal()"><small>ADD</small></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3" ng-controller="SensorController as senCtrl">
+          <div class="box sensors">
+            <i class="fa fa-database" aria-hidden="true"></i>
+            <p class="title">SENSORS</p>
+            <p class="circle">{{vm.sensorData.length}}</p>
+            <div class="plus-list">
+              <span class="glyphicon glyphicon-plus" ng-click="senCtrl.openSensorModal()"><small>ADD</small></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="box messages">
+            <i class="fa fa-database" aria-hidden="true"></i>
+            <p class="title">MESSAGES</p>
+            <p class="circle">{{vm.messages}}</p>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="box alarms">
+            <i class="fa fa-bell" aria-hidden="true"></i>
+            <p class="title">ALARMS</p>
+            <p class="circle">0</p>
+            <div class="plus-list">
+              <span class="glyphicon glyphicon-plus" ng-click="devCtrl.openDeviceModal()"><small>ADD</small></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-xs-12">
+            <div id="chart-container"></div>
+          </div>
+      </div>
+      <div class="row">
+           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 box-grid" ng-repeat="sensor in vm.liveData">
+             <p class="sensorName text-center">{{sensor.sensorName}}<br><small>click on sample type to change chart</small></p>
+              <div class="text-center" ng-repeat="data in sensor.payload">
+               <p class="sensorData"><small><a ng-click="vm.updateChart(sensor._id,data.type)">{{data.type}}</a></small><br>&nbsp{{data.value}}</p>
+             </div>
+           </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 box-grid" ng-controller="SensorController as vm" ng-repeat="sensor in vm.sensorData">
+      <div class="">
+        <div class="">
+        <h4 class="text-left"><img class="" src="app/images/sensor_icon.jpg">&nbsp{{sensor.sensorName}}</h4>
+        </div>
+        <div class="text-box">
+          <p>id:{{sensor._id}}</p>
+          <p class="wrap">
+            This is a {{sensor.sensorType.type}} sensor. To publish use topic:<br>
+            <em>mysensor/{{vm.currentUser}}/{{sensor._id}}</em>
+          </p>
+          <p>
+            <button ng-click="vm.openSensorEditModal(sensor._id)" class="btn btn-sm btn-success"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+            <button ng-click="vm.openSensorDeleteModal(sensor._id)" class="btn btn-sm btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button><br><br>
+            <button ng-click="vm.updateChart(sensor._id,unit)" class="btn btn-sm unit-button" ng-repeat="unit in sensor.measures"><i class="fa fa-line-chart" aria-hidden="true"></i>
+&nbsp{{unit}}</button>
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-controller="DeviceController as vm" ng-repeat="device in vm.deviceData">
+      <div class="box-grid">
+        <div class="">
+           <h4 class="text-left"><img class="" src="app/images/raspberry.jpeg">&nbsp{{device.deviceName}}</h4>
+        </div>
+        <div class="text-box">
+          <p>id:{{device._id}}</p>
+          <p class="wrap">
+            This is a {{device.deviceType}} device. To send from this device use the topic:<br>
+            <em>mysensor/{{vm.currentUser}}/d/{{device._id}}</em>
+          </p>
+            <button ng-click="vm.openDeviceEditModal(device._id)" class="btn btn-sm btn-success"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+            <button ng-click="vm.openDeviceDeleteModal(device._id)" class="btn btn-sm btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+          </p>
+        </div>
+      </div>
+    </div>
+
+ </div>
+</div>

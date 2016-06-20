@@ -1,21 +1,47 @@
 $primary-color: #ffffff;
 $footer-color: #05264d;
+$background: white;
+$text-color-dashboard: black;
 
 
 
 body {
- background-color: white;
+ background-color:$background;
 }
 
-.sensor-device-list {
+#chart-container {
+  background-color:lighten($background,15%);
+  margin-left:7%;
+  margin-right:7%;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  padding: 2%;
   border: 1px solid gray;
-  border-radius: 2%;
+  border-radius: 1%;
+  height: 300px;
+}
+
+.unit-button {
+  background-color: white;
+  border: solid black 1px;
+  margin-left: 5px;
+  margin-right:5px;
+
+}
+
+.unit-button:hover {
+  background-color: $footer-color;
+  color:$background;
+}
+
+.box-grid {
+  border: 1px solid gray;
+  border-radius: 1%;
   margin: 10px;
   padding:10px;
-
-  .text-box {
-
-  }
+  height: 300px;
+  color:$text-color-dashboard;
+  background-color:lighten($background,15%);
 
   p.wrap {
     word-wrap: break-word;
@@ -25,6 +51,16 @@ body {
     width:64px;
   }
 
+}
+
+.box-account {
+  //border: 1px solid gray;
+  //border-radius: 1%;
+  margin-bottom: 20px;
+  color:$text-color-dashboard;
+  .title-account {
+    font-weight: bold;
+  }
 }
 /* Remove the navbar's default margin-bottom and rounded borders */
 .navbar {
@@ -63,11 +99,6 @@ input {
 }
 
 
-// .dataTable {
-//   margin-left: 20px;
-//   margin-right: 20px;
-// }
-
 .sensorName {
   font-size: 1.3em;
   color: rgb(226, 79, 7);
@@ -79,7 +110,8 @@ input {
 
 .dashboard {
   font-size:2em;
-  margin-bottom:30px;
+  margin-bottom:20px;
+  color: $text-color-dashboard;
 }
 
 .box {
@@ -111,10 +143,7 @@ input {
     background: #FF5722;
   }
 
-  .box-account {
-    background: white;
-    border-color: gray;
-  }
+
 
 .box-livedata {
   border: 1px solid gray;
@@ -151,11 +180,6 @@ input {
 }
 
 }
-
-.fa.fa-trash-o {
-  font-size: 1em;
-}
-
 
 .fa.fa-database {
   font-size:2em;
@@ -209,6 +233,7 @@ input {
   top: 20px;
   right: 35px;
   box-shadow:none;
+
 }
 
 .fa.fa-plus {

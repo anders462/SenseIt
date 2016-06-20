@@ -18,7 +18,7 @@ angular
                 templateUrl: 'app/common/header.html'
             },
             'content@': {
-               templateUrl: 'app/dashboard/dashboard.html',
+               templateUrl: 'app/dashboard/dashboard_new.html',
                controller:  'DashboardController',
                controllerAs: 'vm'
             },

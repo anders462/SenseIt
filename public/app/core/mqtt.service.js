@@ -37,7 +37,7 @@ var connect = function(creds){
   //DEV USE PORT 32337
   //PROD USE 35588
   //Note: ADD port TO CONSTANTS
- var client = new Paho.MQTT.Client("m12.cloudmqtt.com", 35588,"web_" + parseInt(Math.random() * 100, 10));
+ var client = new Paho.MQTT.Client("m12.cloudmqtt.com", 32337,"web_" + parseInt(Math.random() * 100, 10));
   // set callback handlers
   client.onConnectionLost = onConnectionLost;
   client.onMessageArrived = onMessageArrived;

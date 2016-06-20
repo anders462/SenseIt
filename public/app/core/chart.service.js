@@ -74,6 +74,7 @@ chart1 = new Highcharts.Chart({
 
 };
 
+
 //update chart
 //this is a somewhat complicated function that need to
 //be refactored in later versions
