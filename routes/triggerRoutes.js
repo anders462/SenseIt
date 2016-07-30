@@ -17,11 +17,12 @@ module.exports = triggerRouter;
 //Trigger routes
 triggerRouter.route('/')
 
-//GET all triggers/alarm from all deviceOwners
+//GET all triggers/alarm for all sensors belonging to Owner
 .get(Verify.verifyOrdinaryUser, function(req,res){
 
-  Triggers.find({})
-    .populate('deviceOwner')
+  Triggers.find({owner:req.decoded._doc._id})
+    .populate('owner')
+    .populate('triggerId')
     .exec(function (err, triggers) {
       if (err) throw err;
       res.json(triggers);
@@ -29,11 +30,11 @@ triggerRouter.route('/')
 })
 
 
-//POST a new trigger for user id
+//POST a new trigger for sensor with id
 .post(Verify.verifyOrdinaryUser,function(req, res){
   req.body.owner = req.decoded._doc._id;
   //creates new record if exists otherwise update record
-  Triggers.update({triggerId:req.body.triggerId},req.body,{upsert: true, setDefaultsOnInsert: true}, function (err, trigger) {
+  Triggers.create(req.body, function (err, trigger) {
           if (err) {
            res.status(500).json({error:err})
             //throw err;  //ADD REAL error handler
@@ -42,7 +43,51 @@ triggerRouter.route('/')
           res.status(200).json({"message": "trigger created", "data": trigger});
         }
       });
+});
+
+
+triggerRouter.route('/:id')
+
+//GET  triggers/alarm for _id belonging to owner
+.get(Verify.verifyOrdinaryUser, function(req,res){
+
+  Triggers.find({owner:req.decoded._doc._id, _id: req.params.id,})
+    .populate('owner')
+    .exec(function (err, triggers) {
+      if (err) throw err;
+      res.json(triggers);
+  });
 })
+
+//Put update trigger with _id belonging to owner
+.put(Verify.verifyOrdinaryUser,function(req, res){
+  req.body.owner = req.decoded._doc._id;
+  //creates new record if exists otherwise update record
+  Triggers.update({_id:req.params.id, owner:req.decoded._doc._id},req.body,{upsert: true, setDefaultsOnInsert: true}, function (err, trigger) {
+          if (err) {
+           res.status(500).json({error:err})
+            //throw err;  //ADD REAL error handler
+          } else {
+          triggerObj.loadTriggers(); //reload trigger model to memory
+          res.status(200).json({"message": "trigger updated", "data": trigger});
+        }
+      });
+})
+
+//Delete trigger with _id belonging to owner
+.delete(Verify.verifyOrdinaryUser, function(req,res){
+    Triggers.remove({_id:req.params.id, owner:req.decoded._doc._id }, function(err,doc){
+      if (err) {
+       res.status(500).json({error:err})
+        //throw err;  //ADD REAL error handler
+      } else {
+      triggerObj.loadTriggers(); //reload trigger model to memory
+      res.status(200).json({"message": "trigger with " + req.params.id + " deleted"});
+    }
+
+    })
+
+});
 
 // //DELETE all devices for user id ****
 // //SENSORS WILL HAVE INCORRECT BELONTO AFTER THIS DELETION//MAYBE NOT ALLOW THIS TO HAPPEN

@@ -19,7 +19,7 @@ var triggerRouter = require('./routes/triggerRoutes');
 var mqttListner = require('./mqtt/mqttListner');
 
 
-
+//
 //Mongoose Connect
 mongoose.connect(config.mongoUrl);
 

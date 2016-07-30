@@ -55,7 +55,8 @@ function checkTrigger(id,sample){
       });
       }
     }
-//mm
+
+//Check if alarms are triggered
 function getStatus(trigger,sampleData) {
   switch(trigger.op){
         case "less":
@@ -77,20 +78,30 @@ function getStatus(trigger,sampleData) {
                 }
             break;
          default:
-          break;
+            return false;
+            break;
       }
 
 }
-
+//log alert event history
 function logAlert(id,event){
   event.time = new Date();
-  Triggers.update({triggerId:id},{$push:{log:event}}, function (err, doc) {
+  Triggers.find({triggerId:id}, function (err, trigger) {
           if (err) {
            console.log({error:err});
             //throw err;  //ADD REAL error handler
           } else {
-          console.log({"message": "alert event logged for id: " + id, "event": event});
-        }
+            trigger[0].log.push(event); //add event to log array
+            trigger[0].triggers.forEach(function(obj){
+              if(obj.type == event.type && obj.op == event.op){ //find and update trigger obj
+                obj.status = true;
+              }
+            })
+            //save updated trigger object
+            Triggers.update({triggerId:id},trigger[0],function(err,doc){
+              console.log({"message": "alert event logged for id: " + id, "doc": doc});
+            });
+          }
       });
 
 }

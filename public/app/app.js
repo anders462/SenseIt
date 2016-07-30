@@ -19,8 +19,8 @@ angular
   'SenseIt.devices',
   'SenseIt.sensors',
   'SenseIt.activate',
-  'SenseIt.logout'
-
+  'SenseIt.logout',
+  "SenseIt.events"
 ])
 .run(stateAuthenticate)
 .config(configFunction);

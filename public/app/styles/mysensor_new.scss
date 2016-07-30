@@ -2,6 +2,8 @@ $primary-color: #ffffff;
 $footer-color: #05264d;
 $background: white;
 $text-color-dashboard: black;
+$standard-gray: #ddd;
+$box-border-width: 1px;
 
 
 
@@ -11,13 +13,10 @@ body {
 
 #chart-container {
   background-color:lighten($background,15%);
-  margin-left:7%;
-  margin-right:7%;
+  margin-left:3%;
+  margin-right:3%;
   margin-top: 3%;
   margin-bottom: 3%;
-  padding: 2%;
-  border: 1px solid gray;
-  border-radius: 1%;
   height: 300px;
 }
 
@@ -35,13 +34,17 @@ body {
 }
 
 .box-grid {
-  border: 1px solid gray;
-  border-radius: 1%;
+  border: $box-border-width solid $standard-gray;
+  border-radius: 5px;
   margin: 10px;
-  padding:10px;
-  height: 300px;
+//  padding:10px;
+  height: auto;
   color:$text-color-dashboard;
   background-color:lighten($background,15%);
+
+  .text-box {
+    margin-left: 20px;
+  }
 
   p.wrap {
     word-wrap: break-word;
@@ -54,12 +57,33 @@ body {
 }
 
 .box-account {
-  //border: 1px solid gray;
-  //border-radius: 1%;
+  border: $box-border-width solid $standard-gray;
+  border-radius: 5px;
   margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right:20px;
   color:$text-color-dashboard;
   .title-account {
     font-weight: bold;
+  }
+  .inner-box-account {
+    padding: 10px;
+  }
+}
+
+.title-bar {
+  height: 35px;
+  width:100%;
+  position: relative;
+  border-bottom: $box-border-width solid $standard-gray;
+  background-color: lighten($standard-gray,10%);
+
+  p {
+    font-size: 1.1em;
+    font-weight: 500;
+    margin-left: 10px;
+    position: relative;
+    top:5px;
   }
 }
 /* Remove the navbar's default margin-bottom and rounded borders */
@@ -146,8 +170,8 @@ input {
 
 
 .box-livedata {
-  border: 1px solid gray;
-  border-radius: 2%;
+  border: $box-border-width solid $standard-gray;
+  border-radius: 5px;
   padding:20px;
   margin-left: 20px;
   margin-right:20px;
